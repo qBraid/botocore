@@ -2,6 +2,72 @@
 CHANGELOG
 =========
 
+1.34.41
+=======
+
+* bugfix:ContainerProvider: Properly refreshes token from file from EKS in ContainerProvider
+* api-change:``lightsail``: This release adds support to upgrade the major version of a database.
+* api-change:``marketplace-catalog``: AWS Marketplace Catalog API now supports setting intent on requests
+* api-change:``resource-explorer-2``: Resource Explorer now uses newly supported IPv4 'amazonaws.com' endpoints by default.
+* api-change:``securitylake``: Documentation updates for Security Lake
+* api-change:``endpoint-rules``: Update endpoint-rules client to latest version
+
+
+1.34.40
+=======
+
+* api-change:``appsync``: Adds support for new options on GraphqlAPIs, Resolvers and  Data Sources for emitting Amazon CloudWatch metrics for enhanced monitoring of AppSync APIs.
+* api-change:``cloudwatch``: Update cloudwatch client to latest version
+* api-change:``neptune-graph``: Adding a new option "parameters" for data plane api ExecuteQuery to support running parameterized query via SDK.
+* api-change:``route53domains``: This release adds bill contact support for RegisterDomain, TransferDomain, UpdateDomainContact and GetDomainDetail API.
+
+
+1.34.39
+=======
+
+* api-change:``amp``: Overall documentation updates.
+* api-change:``batch``: This feature allows Batch to support configuration of repository credentials for jobs running on ECS
+* api-change:``braket``: Creating a job will result in DeviceOfflineException when using an offline device, and DeviceRetiredException when using a retired device.
+* api-change:``cost-optimization-hub``: Adding includeMemberAccounts field to the response of ListEnrollmentStatuses API.
+* api-change:``ecs``: Documentation only update for Amazon ECS.
+* api-change:``iot``: This release allows AWS IoT Core users to enable Online Certificate Status Protocol (OCSP) Stapling for TLS X.509 Server Certificates when creating and updating AWS IoT Domain Configurations with Custom Domain.
+* api-change:``pricing``: Add Throttling Exception to all APIs.
+
+
+1.34.38
+=======
+
+* api-change:``codepipeline``: Add ability to execute pipelines with new parallel & queued execution modes and add support for triggers with filtering on branches and file paths.
+* api-change:``quicksight``: General Interactions for Visuals; Waterfall Chart Color Configuration; Documentation Update
+* api-change:``workspaces``: This release introduces User-Decoupling feature. This feature allows Workspaces Core customers to provision workspaces without providing users. CreateWorkspaces and DescribeWorkspaces APIs will now take a new optional parameter "WorkspaceName".
+
+
+1.34.37
+=======
+
+* api-change:``datasync``: AWS DataSync now supports manifests for specifying files or objects to transfer.
+* api-change:``lexv2-models``: Update lexv2-models client to latest version
+* api-change:``redshift``: LisRecommendations API to fetch Amazon Redshift Advisor recommendations.
+
+
+1.34.36
+=======
+
+* api-change:``appsync``: Support for environment variables in AppSync GraphQL APIs
+* api-change:``ecs``: This release is a documentation only update to address customer issues.
+* api-change:``es``: This release adds clear visibility to the customers on the changes that they make on the domain.
+* api-change:``logs``: This release adds a new field, logGroupArn, to the response of the logs:DescribeLogGroups action.
+* api-change:``opensearch``: This release adds clear visibility to the customers on the changes that they make on the domain.
+* api-change:``wafv2``: You can now delete an API key that you've created for use with your CAPTCHA JavaScript integration API.
+
+
+1.34.35
+=======
+
+* api-change:``glue``: Introduce Catalog Encryption Role within Glue Data Catalog Settings. Introduce SASL/PLAIN as an authentication method for Glue Kafka connections
+* api-change:``workspaces``: Added definitions of various WorkSpace states
+
+
 1.34.34
 =======
 
