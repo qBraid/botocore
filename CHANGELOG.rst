@@ -2,6 +2,40 @@
 CHANGELOG
 =========
 
+1.34.44
+=======
+
+* api-change:``connectparticipant``: Doc only update to GetTranscript API reference guide to inform users about presence of events in the chat transcript.
+* api-change:``emr``: adds fine grained control over Unhealthy Node Replacement to Amazon ElasticMapReduce
+* api-change:``firehose``: This release adds support for Data Message Extraction for decompressed CloudWatch logs, and to use a custom file extension or time zone for S3 destinations.
+* api-change:``lambda``: Documentation-only updates for Lambda to clarify a number of existing actions and properties.
+* api-change:``rds``: Doc only update for a valid option in DB parameter group
+* api-change:``sns``: This release marks phone numbers as sensitive inputs.
+
+
+1.34.43
+=======
+
+* api-change:``artifact``: This is the initial SDK release for AWS Artifact. AWS Artifact provides on-demand access to compliance and third-party compliance reports. This release includes access to List and Get reports, along with their metadata. This release also includes access to AWS Artifact notifications settings.
+* api-change:``codepipeline``: Add ability to override timeout on action level.
+* api-change:``detective``: Doc only updates for content enhancement
+* api-change:``guardduty``: Marked fields IpAddressV4, PrivateIpAddress, Email as Sensitive.
+* api-change:``healthlake``: This release adds a new response parameter, JobProgressReport, to the DescribeFHIRImportJob and ListFHIRImportJobs API operation. JobProgressReport provides details on the progress of the import job on the server.
+* api-change:``opensearch``: Adds additional supported instance types.
+* api-change:``polly``: Amazon Polly adds 1 new voice - Burcu (tr-TR)
+* api-change:``sagemaker``: This release adds a new API UpdateClusterSoftware for SageMaker HyperPod. This API allows users to patch HyperPod clusters with latest platform softwares.
+* api-change:``secretsmanager``: Doc only update for Secrets Manager
+* api-change:``endpoint-rules``: Update endpoint-rules client to latest version
+
+
+1.34.42
+=======
+
+* api-change:``controltower``: Adds support for new Baseline and EnabledBaseline APIs for automating multi-account governance.
+* api-change:``lookoutequipment``: This feature allows customers to see pointwise model diagnostics results for their models.
+* api-change:``qbusiness``: This release adds the metadata-boosting feature, which allows customers to easily fine-tune the underlying ranking of retrieved RAG passages in order to optimize Q&A answer relevance. It also adds new feedback reasons for the PutFeedback API.
+
+
 1.34.41
 =======
 
