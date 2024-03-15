@@ -2,6 +2,100 @@
 CHANGELOG
 =========
 
+1.34.63
+=======
+
+* api-change:``amplify``: Documentation updates for Amplify. Identifies the APIs available only to apps created using Amplify Gen 1.
+* api-change:``ec2-instance-connect``: This release includes a new exception type "SerialConsoleSessionUnsupportedException" for SendSerialConsoleSSHPublicKey API.
+* api-change:``elbv2``: This release allows you to configure HTTP client keep-alive duration for communication between clients and Application Load Balancers.
+* api-change:``fis``: This release adds support for previewing target resources before running a FIS experiment. It also adds resource ARNs for actions, experiments, and experiment templates to API responses.
+* api-change:``iot-roborunner``: The iot-roborunner client has been removed following the deprecation of the service.
+* api-change:``rds``: Updates Amazon RDS documentation for EBCDIC collation for RDS for Db2.
+* api-change:``secretsmanager``: Doc only update for Secrets Manager
+* api-change:``timestream-influxdb``: This is the initial SDK release for Amazon Timestream for InfluxDB. Amazon Timestream for InfluxDB is a new time-series database engine that makes it easy for application developers and DevOps teams to run InfluxDB databases on AWS for near real-time time-series applications using open source APIs.
+* enhancement:``urllib3``: Added support for urllib3 2.2.1+ in Python 3.10+
+
+
+1.34.62
+=======
+
+* api-change:``ivs-realtime``: adds support for multiple new composition layout configuration options (grid, pip)
+* api-change:``kinesisanalyticsv2``: Support new RuntimeEnvironmentUpdate parameter within UpdateApplication API allowing callers to change the Flink version upon which their application runs.
+* api-change:``s3``: This release makes the default option for S3 on Outposts request signing to use the SigV4A algorithm when using AWS Common Runtime (CRT).
+
+
+1.34.61
+=======
+
+* api-change:``cloudformation``: CloudFormation documentation update for March, 2024
+* api-change:``connect``: This release increases MaxResults limit to 500 in request for SearchUsers, SearchQueues and SearchRoutingProfiles APIs of Amazon Connect.
+* api-change:``ec2``: Documentation updates for Amazon EC2.
+* api-change:``kafka``: Added support for specifying the starting position of topic replication in MSK-Replicator.
+* api-change:``ssm``: March 2024 doc-only updates for Systems Manager.
+
+
+1.34.60
+=======
+
+* api-change:``codestar-connections``: Added a sync configuration enum to disable publishing of deployment status to source providers (PublishDeploymentStatus). Added a sync configuration enum (TriggerStackUpdateOn) to only trigger changes.
+* api-change:``elasticache``: Revisions to API text that are now to be carried over to SDK text, changing usages of "SFO" in code examples to "us-west-1", and some other typos.
+* api-change:``mediapackagev2``: This release enables customers to safely update their MediaPackage v2 channel groups, channels and origin endpoints using entity tags.
+
+
+1.34.59
+=======
+
+* api-change:``batch``: This release adds JobStateTimeLimitActions setting to the Job Queue API. It allows you to configure an action Batch can take for a blocking job in front of the queue after the defined period of time. The new parameter applies for ECS, EKS, and FARGATE Job Queues.
+* api-change:``bedrock-agent-runtime``: Documentation update for Bedrock Runtime Agent
+* api-change:``cloudtrail``: Added exceptions to CreateTrail, DescribeTrails, and ListImportFailures APIs.
+* api-change:``codebuild``: This release adds support for a new webhook event: PULL_REQUEST_CLOSED.
+* api-change:``cognito-idp``: Add ConcurrentModificationException to SetUserPoolMfaConfig
+* api-change:``guardduty``: Add RDS Provisioned and Serverless Usage types
+* api-change:``transfer``: Added DES_EDE3_CBC to the list of supported encryption algorithms for messages sent with an AS2 connector.
+
+
+1.34.58
+=======
+
+* api-change:``appconfig``: AWS AppConfig now supports dynamic parameters, which enhance the functionality of AppConfig Extensions by allowing you to provide parameter values to your Extensions at the time you deploy your configuration.
+* api-change:``ec2``: This release adds an optional parameter to RegisterImage and CopyImage APIs to support tagging AMIs at the time of creation.
+* api-change:``grafana``: Adds support for the new GrafanaToken as part of the Amazon Managed Grafana Enterprise plugins upgrade to associate your AWS account with a Grafana Labs account.
+* api-change:``lambda``: Documentation updates for AWS Lambda
+* api-change:``payment-cryptography-data``: AWS Payment Cryptography EMV Decrypt Feature  Release
+* api-change:``rds``: Updates Amazon RDS documentation for io2 storage for Multi-AZ DB clusters
+* api-change:``snowball``: Doc-only update for change to EKS-Anywhere ordering.
+* api-change:``wafv2``: You can increase the max request body inspection size for some regional resources. The size setting is in the web ACL association config. Also, the AWSManagedRulesBotControlRuleSet EnableMachineLearning setting now takes a Boolean instead of a primitive boolean type, for languages like Java.
+* api-change:``workspaces``: Added note for user decoupling
+
+
+1.34.57
+=======
+
+* api-change:``dynamodb``: Doc only updates for DynamoDB documentation
+* api-change:``imagebuilder``: Add PENDING status to Lifecycle Execution resource status. Add StartTime and EndTime to ListLifecycleExecutionResource API response.
+* api-change:``mwaa``: Amazon MWAA adds support for Apache Airflow v2.8.1.
+* api-change:``rds``: Updated the input of CreateDBCluster and ModifyDBCluster to support setting CA certificates. Updated the output of DescribeDBCluster to show current CA certificate setting value.
+* api-change:``redshift``: Update for documentation only. Covers port ranges, definition updates for data sharing, and definition updates to cluster-snapshot documentation.
+* api-change:``verifiedpermissions``: Deprecating details in favor of configuration for GetIdentitySource and ListIdentitySources APIs.
+
+
+1.34.56
+=======
+
+* api-change:``apigateway``: Documentation updates for Amazon API Gateway
+* api-change:``chatbot``: Minor update to documentation.
+* api-change:``organizations``: This release contains an endpoint addition
+* api-change:``sesv2``: Adds support for providing custom headers within SendEmail and SendBulkEmail for SESv2.
+
+
+1.34.55
+=======
+
+* api-change:``cloudformation``: Add DetailedStatus field to DescribeStackEvents and DescribeStacks APIs
+* api-change:``fsx``: Added support for creating FSx for NetApp ONTAP file systems with up to 12 HA pairs, delivering up to 72 GB/s of read throughput and 12 GB/s of write throughput.
+* api-change:``organizations``: Documentation update for AWS Organizations
+
+
 1.34.54
 =======
 
