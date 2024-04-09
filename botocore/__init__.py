@@ -137,3 +137,32 @@ def invoke_initializers(session):
     """
     for initializer in _INITIALIZERS:
         initializer(session)
+
+
+
+def set_default_s3_uri() -> None:
+    """Get the S3 URI for the qBraid Quantum Jobs from an environment variable
+    or by constructing it from the user's email address using the qBraid session."""
+    current_s3_uri = os.environ.get("AMZN_BRAKET_TASK_RESULTS_S3_URI")
+    if current_s3_uri:
+        return
+        
+    folder = None
+
+    try:
+        from qbraid_core import QbraidClient, QbraidSession
+        session = QbraidSession()
+        email = session.user_email or session.get_user().get("email")
+        folder = QbraidClient._convert_email_symbols(email)
+    except Exception:
+        pass
+
+    bucket = "amazon-braket-qbraid-jobs"
+    folder = folder or "user-40qbraid-2ecom"
+    s3_uri = f"https://{bucket}.s3.amazonaws.com/{folder}"
+
+    os.environ["AMZN_BRAKET_TASK_RESULTS_S3_URI"] = s3_uri
+    logging.info(f"Set AMZN_BRAKET_TASK_RESULTS_S3_URI to {s3_uri}")
+
+
+set_default_s3_uri()
