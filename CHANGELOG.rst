@@ -2,6 +2,27 @@
 CHANGELOG
 =========
 
+1.34.82
+=======
+
+* api-change:``cleanrooms``: AWS Clean Rooms Differential Privacy is now fully available. Differential privacy protects against user-identification attempts.
+* api-change:``connect``: This release adds new Submit Auto Evaluation Action for Amazon Connect Rules.
+* api-change:``networkmonitor``: Examples were added to CloudWatch Network Monitor commands.
+* api-change:``qconnect``: This release adds a new QiC public API updateSession and updates an existing QiC public API createSession
+* api-change:``rekognition``: Added support for ContentType to content moderation detections.
+* api-change:``supplychain``: This release includes API SendDataIntegrationEvent for AWS Supply Chain
+* api-change:``workspaces-thin-client``: Adding tags field to SoftwareSet. Removing tags fields from Summary objects. Changing the list of exceptions in tagging APIs. Fixing an issue where the SDK returns empty tags in Get APIs.
+
+
+1.34.81
+=======
+
+* api-change:``codebuild``: Add new webhook filter types for GitHub webhooks
+* api-change:``mediaconvert``: This release includes support for bringing your own fonts to use for burn-in or DVB-Sub captioning workflows.
+* api-change:``pinpoint``: The OrchestrationSendingRoleArn has been added to the email channel and is used to send emails from campaigns or journeys.
+* api-change:``rds``: This release adds support for specifying the CA certificate to use for the new db instance when restoring from db snapshot, restoring from s3, restoring to point in time, and creating a db instance read replica.
+
+
 1.34.80
 =======
 
