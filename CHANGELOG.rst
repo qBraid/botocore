@@ -2,6 +2,48 @@
 CHANGELOG
 =========
 
+1.34.88
+=======
+
+* api-change:``glue``: Adding RowFilter in the response for GetUnfilteredTableMetadata API
+* api-change:``internetmonitor``: This update introduces the GetInternetEvent and ListInternetEvents APIs, which provide access to internet events displayed on the Amazon CloudWatch Internet Weather Map.
+* api-change:``personalize``: This releases auto training capability while creating a solution and automatically syncing latest solution versions when creating/updating a campaign
+
+
+1.34.87
+=======
+
+* api-change:``drs``: Outpost ARN added to Source Server and Recovery Instance
+* api-change:``emr-serverless``: This release adds the capability to publish detailed Spark engine metrics to Amazon Managed Service for Prometheus (AMP) for  enhanced monitoring for Spark jobs.
+* api-change:``guardduty``: Added IPv6Address fields for local and remote IP addresses
+* api-change:``quicksight``: This release adds support for the Cross Sheet Filter and Control features, and support for warnings in asset imports for any permitted errors encountered during execution
+* api-change:``rolesanywhere``: This release introduces the PutAttributeMapping and DeleteAttributeMapping APIs. IAM Roles Anywhere now provides the capability to define a set of mapping rules, allowing customers to specify which data is extracted from their X.509 end-entity certificates.
+* api-change:``sagemaker``: Removed deprecated enum values and updated API documentation.
+* api-change:``workspaces``: Adds new APIs for managing and sharing WorkSpaces BYOL configuration across accounts.
+
+
+1.34.86
+=======
+
+* api-change:``ec2``: Documentation updates for Elastic Compute Cloud (EC2).
+* api-change:``qbusiness``: This release adds support for IAM Identity Center (IDC) as the identity gateway for Q Business. It also allows users to provide an explicit intent for Q Business to identify how the Chat request should be handled.
+
+
+1.34.85
+=======
+
+* api-change:``bedrock-agent``: For Create Agent API, the agentResourceRoleArn parameter is no longer required.
+* api-change:``emr-serverless``: This release adds support for shuffle optimized disks that allow larger disk sizes and higher IOPS to efficiently run shuffle heavy workloads.
+* api-change:``entityresolution``: Cross Account Resource Support .
+* api-change:``iotwireless``: Add PublicGateways in the GetWirelessStatistics call response, indicating the LoRaWAN public network accessed by the device.
+* api-change:``lakeformation``: This release adds Lake Formation managed RAM support for the 4 APIs - "DescribeLakeFormationIdentityCenterConfiguration", "CreateLakeFormationIdentityCenterConfiguration", "DescribeLakeFormationIdentityCenterConfiguration", and "DeleteLakeFormationIdentityCenterConfiguration"
+* api-change:``m2``: Adding new ListBatchJobRestartPoints API and support for restart batch job.
+* api-change:``mediapackagev2``: Dash v2 is a MediaPackage V2 feature to support egressing on DASH manifest format.
+* api-change:``outposts``: This release adds new APIs to allow customers to configure their Outpost capacity at order-time.
+* api-change:``wellarchitected``: AWS Well-Architected now has a Connector for Jira to allow customers to efficiently track workload risks and improvement efforts and create closed-loop mechanisms.
+* enhancement:AWSCRT: Update awscrt version to 0.20.9
+
+
 1.34.84
 =======
 
