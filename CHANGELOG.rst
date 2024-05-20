@@ -2,6 +2,73 @@
 CHANGELOG
 =========
 
+1.34.108
+========
+
+* api-change:``application-autoscaling``: add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``codebuild``: Aws CodeBuild now supports 36 hours build timeout
+* api-change:``elbv2``: This release adds dualstack-without-public-ipv4 IP address type for ALB.
+* api-change:``lakeformation``: Introduces a new API, GetDataLakePrincipal, that returns the identity of the invoking principal
+* api-change:``transfer``: Enable use of CloudFormation traits in Smithy model to improve generated CloudFormation schema from the Smithy API model.
+
+
+1.34.107
+========
+
+* api-change:``acm-pca``: This release adds support for waiters to fail on AccessDeniedException when having insufficient permissions
+* api-change:``connect``: Adding Contact Flow metrics to the GetMetricDataV2 API
+* api-change:``kafka``: AWS MSK support for Broker Removal.
+* api-change:``mwaa``: Amazon MWAA now supports Airflow web server auto scaling to automatically handle increased demand from REST APIs, Command Line Interface (CLI), or more Airflow User Interface (UI) users. Customers can specify maximum and minimum web server instances during environment creation and update workflow.
+* api-change:``quicksight``: This release adds DescribeKeyRegistration and UpdateKeyRegistration APIs to manage QuickSight Customer Managed Keys (CMK).
+* api-change:``sagemaker``: Introduced WorkerAccessConfiguration to SageMaker Workteam. This allows customers to configure resource access for workers in a workteam.
+* api-change:``secretsmanager``: Documentation updates for AWS Secrets Manager
+* bugfix:retries: Fix backoff calculation for truncated binary exponential backoff (`#3178 <https://github.com/boto/botocore/issues/3178>`__)
+
+
+1.34.106
+========
+
+* api-change:``bedrock-agent-runtime``: Updating Bedrock Knowledge Base Metadata & Filters feature with two new filters listContains and stringContains
+* api-change:``codebuild``: CodeBuild Reserved Capacity VPC Support
+* api-change:``datasync``: Task executions now display a CANCELLING status when an execution is in the process of being cancelled.
+* api-change:``grafana``: This release adds new ServiceAccount and ServiceAccountToken APIs.
+* api-change:``medical-imaging``: Added support for importing medical imaging data from Amazon S3 buckets across accounts and regions.
+* api-change:``securityhub``: Documentation-only update for AWS Security Hub
+
+
+1.34.105
+========
+
+* api-change:``connect``: Amazon Connect provides enhanced search capabilities for flows & flow modules on the Connect admin website and programmatically using APIs. You can search for flows and flow modules by name, description, type, status, and tags, to filter and identify a specific flow in your Connect instances.
+* api-change:``s3``: Updated a few x-id in the http uri traits
+
+
+1.34.104
+========
+
+* api-change:``events``: Amazon EventBridge introduces KMS customer-managed key (CMK) encryption support for custom and partner events published on EventBridge Event Bus (including default bus) and UpdateEventBus API.
+* api-change:``vpc-lattice``: This release adds TLS Passthrough support. It also increases max number of target group per rule to 10.
+
+
+1.34.103
+========
+
+* api-change:``discovery``: add v2 smoke tests and smithy smokeTests trait for SDK testing
+* api-change:``greengrassv2``: Mark ComponentVersion in ComponentDeploymentSpecification as required.
+* api-change:``sagemaker``: Introduced support for G6 instance types on Sagemaker Notebook Instances and on SageMaker Studio for JupyterLab and CodeEditor applications.
+* api-change:``sso-oidc``: Updated request parameters for PKCE support.
+
+
+1.34.102
+========
+
+* api-change:``bedrock-agent-runtime``: This release adds support to provide guardrail configuration and modify inference parameters that are then used in RetrieveAndGenerate API in Agents for Amazon Bedrock.
+* api-change:``pinpoint``: This release adds support for specifying email message headers for Email Templates, Campaigns, Journeys and Send Messages.
+* api-change:``route53resolver``: Update the DNS Firewall settings to correct a spelling issue.
+* api-change:``ssm-sap``: Added support for application-aware start/stop of SAP applications running on EC2 instances, with SSM for SAP
+* api-change:``verifiedpermissions``: Adds policy effect and actions fields to Policy API's.
+
+
 1.34.101
 ========
 
