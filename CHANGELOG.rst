@@ -2,6 +2,29 @@
 CHANGELOG
 =========
 
+1.34.110
+========
+
+* api-change:``cloudfront``: Model update; no change to SDK functionality.
+* api-change:``glue``: Add Maintenance window to CreateJob and UpdateJob APIs and JobRun response. Add a new Job Run State for EXPIRED.
+* api-change:``lightsail``: This release adds support for Amazon Lightsail instances to switch between dual-stack or IPv4 only and IPv6-only public IP address types.
+* api-change:``mailmanager``: This release includes a new Amazon SES feature called Mail Manager, which is a set of email gateway capabilities designed to help customers strengthen their organization's email infrastructure, simplify email workflow management, and streamline email compliance control.
+* api-change:``pi``: Performance Insights added a new input parameter called AuthorizedActions to support the fine-grained access feature. Performance Insights also restricted the acceptable input characters.
+* api-change:``rds``: Updates Amazon RDS documentation for Db2 license through AWS Marketplace.
+* api-change:``storagegateway``: Added new SMBSecurityStrategy enum named MandatoryEncryptionNoAes128, new mode enforces encryption and disables AES 128-bit algorithums.
+
+
+1.34.109
+========
+
+* api-change:``bedrock-agent``: This release adds support for using Guardrails with Bedrock Agents.
+* api-change:``bedrock-agent-runtime``: This release adds support for using Guardrails with Bedrock Agents.
+* api-change:``controltower``: Added ListControlOperations API and filtering support for ListEnabledControls API. Updates also includes added metadata for enabled controls and control operations.
+* api-change:``osis``: Add support for creating an OpenSearch Ingestion pipeline that is attached to a provided VPC. Add information about the destinations of an OpenSearch Ingestion pipeline to the GetPipeline and ListPipelines APIs.
+* api-change:``rds``: This release adds support for EngineLifecycleSupport on DBInstances, DBClusters, and GlobalClusters.
+* api-change:``secretsmanager``: add v2 smoke tests and smithy smokeTests trait for SDK testing
+
+
 1.34.108
 ========
 
