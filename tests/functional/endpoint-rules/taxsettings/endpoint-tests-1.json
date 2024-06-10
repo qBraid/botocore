@@ -1,23 +1,10 @@
 {
     "testCases": [
         {
-            "documentation": "For region us-west-2 with FIPS disabled and DualStack disabled",
-            "expect": {
-                "endpoint": {
-                    "url": "https://honeycode.us-west-2.amazonaws.com"
-                }
-            },
-            "params": {
-                "Region": "us-west-2",
-                "UseFIPS": false,
-                "UseDualStack": false
-            }
-        },
-        {
             "documentation": "For region us-east-1 with FIPS enabled and DualStack enabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.us-east-1.api.aws"
+                    "url": "https://tax-fips.us-east-1.api.aws"
                 }
             },
             "params": {
@@ -30,7 +17,7 @@
             "documentation": "For region us-east-1 with FIPS enabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.us-east-1.amazonaws.com"
+                    "url": "https://tax-fips.us-east-1.amazonaws.com"
                 }
             },
             "params": {
@@ -43,7 +30,7 @@
             "documentation": "For region us-east-1 with FIPS disabled and DualStack enabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.us-east-1.api.aws"
+                    "url": "https://tax.us-east-1.api.aws"
                 }
             },
             "params": {
@@ -56,7 +43,7 @@
             "documentation": "For region us-east-1 with FIPS disabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.us-east-1.amazonaws.com"
+                    "url": "https://tax.us-east-1.amazonaws.com"
                 }
             },
             "params": {
@@ -69,7 +56,7 @@
             "documentation": "For region cn-north-1 with FIPS enabled and DualStack enabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.cn-north-1.api.amazonwebservices.com.cn"
+                    "url": "https://tax-fips.cn-north-1.api.amazonwebservices.com.cn"
                 }
             },
             "params": {
@@ -82,7 +69,7 @@
             "documentation": "For region cn-north-1 with FIPS enabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.cn-north-1.amazonaws.com.cn"
+                    "url": "https://tax-fips.cn-north-1.amazonaws.com.cn"
                 }
             },
             "params": {
@@ -95,7 +82,7 @@
             "documentation": "For region cn-north-1 with FIPS disabled and DualStack enabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.cn-north-1.api.amazonwebservices.com.cn"
+                    "url": "https://tax.cn-north-1.api.amazonwebservices.com.cn"
                 }
             },
             "params": {
@@ -108,7 +95,7 @@
             "documentation": "For region cn-north-1 with FIPS disabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.cn-north-1.amazonaws.com.cn"
+                    "url": "https://tax.cn-north-1.amazonaws.com.cn"
                 }
             },
             "params": {
@@ -121,7 +108,7 @@
             "documentation": "For region us-gov-east-1 with FIPS enabled and DualStack enabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.us-gov-east-1.api.aws"
+                    "url": "https://tax-fips.us-gov-east-1.api.aws"
                 }
             },
             "params": {
@@ -134,7 +121,7 @@
             "documentation": "For region us-gov-east-1 with FIPS enabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.us-gov-east-1.amazonaws.com"
+                    "url": "https://tax-fips.us-gov-east-1.amazonaws.com"
                 }
             },
             "params": {
@@ -147,7 +134,7 @@
             "documentation": "For region us-gov-east-1 with FIPS disabled and DualStack enabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.us-gov-east-1.api.aws"
+                    "url": "https://tax.us-gov-east-1.api.aws"
                 }
             },
             "params": {
@@ -160,7 +147,7 @@
             "documentation": "For region us-gov-east-1 with FIPS disabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.us-gov-east-1.amazonaws.com"
+                    "url": "https://tax.us-gov-east-1.amazonaws.com"
                 }
             },
             "params": {
@@ -184,7 +171,7 @@
             "documentation": "For region us-iso-east-1 with FIPS enabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.us-iso-east-1.c2s.ic.gov"
+                    "url": "https://tax-fips.us-iso-east-1.c2s.ic.gov"
                 }
             },
             "params": {
@@ -208,7 +195,7 @@
             "documentation": "For region us-iso-east-1 with FIPS disabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.us-iso-east-1.c2s.ic.gov"
+                    "url": "https://tax.us-iso-east-1.c2s.ic.gov"
                 }
             },
             "params": {
@@ -232,7 +219,7 @@
             "documentation": "For region us-isob-east-1 with FIPS enabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode-fips.us-isob-east-1.sc2s.sgov.gov"
+                    "url": "https://tax-fips.us-isob-east-1.sc2s.sgov.gov"
                 }
             },
             "params": {
@@ -256,7 +243,7 @@
             "documentation": "For region us-isob-east-1 with FIPS disabled and DualStack disabled",
             "expect": {
                 "endpoint": {
-                    "url": "https://honeycode.us-isob-east-1.sc2s.sgov.gov"
+                    "url": "https://tax.us-isob-east-1.sc2s.sgov.gov"
                 }
             },
             "params": {
