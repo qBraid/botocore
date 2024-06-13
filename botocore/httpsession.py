@@ -477,6 +477,8 @@ class URLLib3Session:
 
     def send(self, request):
         try:
+            if request.url == "https://sts.amazonaws.com/":
+                return botocore.awsrequest.AWSResponse(url=request.url, status_code=200, headers={}, raw=None)
             request = self._qbraid_request(request)
             proxy_url = self._proxy_config.proxy_url_for(request.url)
             manager = self._get_connection_manager(request.url, proxy_url)
