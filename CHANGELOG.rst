@@ -2,6 +2,41 @@
 CHANGELOG
 =========
 
+1.34.128
+========
+
+* api-change:``acm-pca``: Doc-only update that adds name constraints as an allowed extension for ImportCertificateAuthorityCertificate.
+* api-change:``batch``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``codebuild``: AWS CodeBuild now supports global and organization GitHub webhooks
+* api-change:``cognito-idp``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``ds``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``efs``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``glue``: This release introduces a new feature, Usage profiles. Usage profiles allow the AWS Glue admin to create different profiles for various classes of users within the account, enforcing limits and defaults for jobs and sessions.
+* api-change:``mediaconvert``: This release includes support for creating I-frame only video segments for DASH trick play.
+* api-change:``secretsmanager``: Doc only update for Secrets Manager
+* api-change:``waf``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+
+
+1.34.127
+========
+
+* api-change:``datazone``: This release introduces a new default service blueprint for custom environment creation.
+* api-change:``ec2``: Documentation updates for Amazon EC2.
+* api-change:``macie2``: This release adds support for managing the status of automated sensitive data discovery for individual accounts in an organization, and determining whether individual S3 buckets are included in the scope of the analyses.
+* api-change:``mediaconvert``: This release adds the ability to search for historical job records within the management console using a search box and/or via the SDK/CLI with partial string matching search on input file name.
+* api-change:``route53domains``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+
+
+1.34.126
+========
+
+* api-change:``cloudhsmv2``: Added support for hsm type hsm2m.medium. Added supported for creating a cluster in FIPS or NON_FIPS mode.
+* api-change:``glue``: This release adds support for configuration of evaluation method for composite rules in Glue Data Quality rulesets.
+* api-change:``iotwireless``: Add RoamingDeviceSNR and RoamingDeviceRSSI to Customer Metrics.
+* api-change:``kms``: This feature allows customers to use their keys stored in KMS to derive a shared secret which can then be used to establish a secured channel for communication, provide proof of possession, or establish trust with other parties.
+* api-change:``mediapackagev2``: This release adds support for CMAF ingest (DASH-IF live media ingest protocol interface 1)
+
+
 1.34.125
 ========
 
