@@ -1,15 +1,16 @@
 {
   "pagination": {
-    "Retrieve": {
+    "ListLibraryItems": {
       "input_token": "nextToken",
       "output_token": "nextToken",
-      "result_key": "retrievalResults"
+      "limit_key": "limit",
+      "result_key": "libraryItems"
     },
-    "GetAgentMemory": {
+    "ListQApps": {
       "input_token": "nextToken",
       "output_token": "nextToken",
-      "limit_key": "maxItems",
-      "result_key": "memoryContents"
+      "limit_key": "limit",
+      "result_key": "apps"
     }
   }
 }
