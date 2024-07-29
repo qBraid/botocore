@@ -2,6 +2,56 @@
 CHANGELOG
 =========
 
+1.34.149
+========
+
+* api-change:``application-autoscaling``: Application Auto Scaling is now more responsive to the changes in demand of your SageMaker Inference endpoints. To get started, create or update a Target Tracking policy based on High Resolution CloudWatch metrics.
+* api-change:``application-signals``: CloudWatch Application Signals now supports application logs correlation with traces and operational health metrics of applications running on EC2 instances. Users can view the most relevant telemetry to troubleshoot application health anomalies such as spikes in latency, errors, and availability.
+* api-change:``bedrock-runtime``: Provides ServiceUnavailableException error message
+* api-change:``codecommit``: CreateRepository API now throws OperationNotAllowedException when the account has been restricted from creating a repository.
+* api-change:``datazone``: Introduces GetEnvironmentCredentials operation to SDK
+* api-change:``ec2``: EC2 Fleet now supports using custom identifiers to reference Amazon Machine Images (AMI) in launch requests that are configured to choose from a diversified list of instance types.
+* api-change:``ecr``: API and documentation updates for Amazon ECR, adding support for creating, updating, describing and deleting ECR Repository Creation Template.
+* api-change:``eks``: This release adds support for EKS cluster to manage extended support.
+* api-change:``elbv2``: This release adds support for sharing trust stores across accounts and organizations through integration with AWS Resource Access Manager.
+* api-change:``network-firewall``: You can now log events that are related to TLS inspection, in addition to the existing alert and flow logging.
+* api-change:``outposts``: Adding default vCPU information to GetOutpostSupportedInstanceTypes and GetOutpostInstanceTypes responses
+* api-change:``stepfunctions``: This release adds support to customer managed KMS key encryption in AWS Step Functions.
+
+
+1.34.148
+========
+
+* api-change:``cleanrooms``: Three enhancements to the AWS Clean Rooms: Disallowed Output Columns, Flexible Result Receivers, SQL as a Seed
+* api-change:``dynamodb``: DynamoDB doc only update for July
+* api-change:``iotsitewise``: Adds support for creating SiteWise Edge gateways that run on a Siemens Industrial Edge Device.
+* api-change:``mediapackagev2``: This release adds support for Irdeto DRM encryption in DASH manifests.
+* api-change:``medical-imaging``: CopyImageSet API adds copying selected instances between image sets, and overriding inconsistent metadata with a force parameter. UpdateImageSetMetadata API enables reverting to prior versions; updates to Study, Series, and SOP Instance UIDs; and updates to private elements, with a force parameter.
+* api-change:``pinpoint-sms-voice-v2``: Update for rebrand to AWS End User Messaging SMS and Voice.
+
+
+1.34.147
+========
+
+* api-change:``appsync``: Adding support for paginators in AppSync list APIs
+* api-change:``cleanrooms``: This release adds AWS Entity Resolution integration to associate ID namespaces & ID mapping workflow resources as part of ID namespace association and  ID mapping table  in AWS Clean Rooms. It also introduces a new ID_MAPPING_TABLE analysis rule to manage the protection on ID mapping table.
+* api-change:``cleanroomsml``: Adds SQL query as the source of seed audience for audience generation job.
+* api-change:``connect``: Added PostContactSummary segment type on ListRealTimeContactAnalysisSegmentsV2 API
+* api-change:``connect-contact-lens``: Added PostContactSummary segment type on ListRealTimeContactAnalysisSegments API
+* api-change:``datazone``: This release removes the deprecated dataProductItem field from Search API output.
+* api-change:``entityresolution``: Support First Party ID Mapping
+
+
+1.34.146
+========
+
+* api-change:``datazone``: This release adds 1/ support of register S3 locations of assets in AWS Lake Formation hybrid access mode for DefaultDataLake blueprint. 2/ support of CRUD operations for Asset Filters.
+* api-change:``ivs``: Documentation update for IVS Low Latency API Reference.
+* api-change:``mobile``: The mobile client has been removed following the deprecation of the service.
+* api-change:``neptune-graph``: Amazon Neptune Analytics provides new options for customers to start with smaller graphs at a lower cost. CreateGraph, CreaateGraphImportTask, UpdateGraph and StartImportTask APIs will now allow 32 and 64 for `provisioned-memory`
+* api-change:``redshift-serverless``: Adds dualstack support for Redshift Serverless workgroup.
+
+
 1.34.145
 ========
 
