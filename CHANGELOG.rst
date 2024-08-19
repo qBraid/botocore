@@ -2,6 +2,144 @@
 CHANGELOG
 =========
 
+1.35.0
+======
+
+* api-change:``batch``: Improvements of integration between AWS Batch and EC2.
+* api-change:``inspector2``: Update the correct format of key and values for resource tags
+* api-change:``quicksight``: Amazon QuickSight launches Customer Managed Key (CMK) encryption for Data Source metadata
+* api-change:``sagemaker``: Introduce Endpoint and EndpointConfig Arns in sagemaker:ListPipelineExecutionSteps API response
+* api-change:``sesv2``: Marking use case description field of account details as deprecated.
+* feature:signing: Adds internal support for the new 'auth' trait to allow a priority list of auth types for a service or operation.
+
+
+1.34.162
+========
+
+* api-change:``docdb``: This release adds Global Cluster Failover capability which enables you to change your global cluster's primary AWS region, the region that serves writes, during a regional outage. Performing a failover action preserves your Global Cluster setup.
+* api-change:``ecs``: This release introduces a new ContainerDefinition configuration to support the customer-managed keys for ECS container restart feature.
+* api-change:``iam``: Make the LastUsedDate field in the GetAccessKeyLastUsed response optional. This may break customers who only call the API for access keys with a valid LastUsedDate. This fixes a deserialization issue for access keys without a LastUsedDate, because the field was marked as required but could be null.
+* api-change:``s3``: Amazon Simple Storage Service / Features  : Adds support for pagination in the S3 ListBuckets API.
+
+
+1.34.161
+========
+
+* api-change:``codebuild``: AWS CodeBuild now supports using Secrets Manager to store git credentials and using multiple source credentials in a single project.
+
+
+1.34.160
+========
+
+* api-change:``amplify``: Add a new field "cacheConfig" that enables users to configure the CDN cache settings for an App
+* api-change:``appstream``: This release includes following new APIs: CreateThemeForStack, DescribeThemeForStack, UpdateThemeForStack, DeleteThemeForStack to support custom branding programmatically.
+* api-change:``fis``: This release adds support for additional error information on experiment failure. It adds the error code, location, and account id on relevant failures to the GetExperiment and ListExperiment API responses.
+* api-change:``glue``: Add AttributesToGet parameter support for Glue GetTables
+* api-change:``neptune-graph``: Amazon Neptune Analytics provides a new option for customers to load data into a graph using the RDF (Resource Description Framework) NTRIPLES format. When loading NTRIPLES files, use the value `convertToIri` for the `blankNodeHandling` parameter.
+
+
+1.34.159
+========
+
+* api-change:``compute-optimizer``: Doc only update for Compute Optimizer that fixes several customer-reported issues relating to ECS finding classifications
+* api-change:``config``: Documentation update for the OrganizationConfigRuleName regex pattern.
+* api-change:``ec2``: This release adds new capabilities to manage On-Demand Capacity Reservations including the ability to split your reservation, move capacity between reservations, and modify the instance eligibility of your reservation.
+* api-change:``eks``: Added support for new AL2023 GPU AMIs to the supported AMITypes.
+* api-change:``groundstation``: Updating documentation for OEMEphemeris to link to AWS Ground Station User Guide
+* api-change:``medialive``: AWS Elemental MediaLive now supports now supports editing the PID values for a Multiplex.
+* api-change:``sagemaker``: Releasing large data support as part of CreateAutoMLJobV2 in SageMaker Autopilot and CreateDomain API for SageMaker Canvas.
+
+
+1.34.158
+========
+
+* api-change:``cognito-idp``: Fixed a description of AdvancedSecurityAdditionalFlows in Amazon Cognito user pool configuration.
+* api-change:``connect``: This release supports adding RoutingCriteria via UpdateContactRoutingData public API.
+* api-change:``ssm``: Systems Manager doc-only updates for August 2024.
+
+
+1.34.157
+========
+
+* api-change:``cognito-idp``: Added support for threat protection for custom authentication in Amazon Cognito user pools.
+* api-change:``connect``: This release fixes a regression in number of access control tags that are allowed to be added to a security profile in Amazon Connect. You can now add up to four access control tags on a single security profile.
+* api-change:``ec2``: Launch of private IPv6 addressing for VPCs and Subnets. VPC IPAM supports the planning and monitoring of private IPv6 usage.
+* api-change:``glue``: This release adds support to retrieve the validation status when creating or updating Glue Data Catalog Views. Also added is support for BasicCatalogTarget partition keys.
+
+
+1.34.156
+========
+
+* api-change:``appintegrations``: Updated CreateDataIntegration and CreateDataIntegrationAssociation API to support bulk data export from Amazon Connect Customer Profiles to the customer S3 bucket.
+* api-change:``glue``: Introducing AWS Glue Data Quality anomaly detection, a new functionality that uses ML-based solutions to detect data anomalies users have not explicitly defined rules for.
+
+
+1.34.155
+========
+
+* api-change:``bedrock-agent-runtime``: Introduce model invocation output traces for orchestration traces, which contain the model's raw response and usage.
+* api-change:``cognito-idp``: Advanced security feature updates to include password history and log export for Cognito user pools.
+* api-change:``cost-optimization-hub``: This release adds savings percentage support to the ListRecommendationSummaries API.
+* api-change:``workspaces``: Added support for BYOL_GRAPHICS_G4DN_WSP IngestionProcess
+* enhancement:AWSCRT: Update awscrt version to 0.21.2
+
+
+1.34.154
+========
+
+* api-change:``datazone``: This releases Data Product feature. Data Products allow grouping data assets into cohesive, self-contained units for ease of publishing for data producers, and ease of finding and accessing for data consumers.
+* api-change:``ecr``: Released two new APIs along with documentation updates. The GetAccountSetting API is used to view the current basic scan type version setting for your registry, while the PutAccountSetting API is used to update the basic scan type version for your registry.
+* api-change:``kinesis-video-webrtc-storage``: Add JoinStorageSessionAsViewer API
+* api-change:``pi``: Added a description for the Dimension db.sql.tokenized_id on the DimensionGroup data type page.
+
+
+1.34.153
+========
+
+* api-change:``cloudwatch``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``kinesis``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``resiliencehub``: Customers are presented with the grouping recommendations and can determine if the recommendations are accurate and apply to their case. This feature simplifies onboarding by organizing resources into appropriate AppComponents.
+* api-change:``route53``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``waf-regional``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+
+
+1.34.152
+========
+
+* api-change:``bedrock``: API and Documentation for Bedrock Model Copy feature. This feature lets you share and copy a custom model from one region to another or one account to another.
+* api-change:``controlcatalog``: AWS Control Tower provides two new public APIs controlcatalog:ListControls and controlcatalog:GetControl under controlcatalog service namespace, which enable customers to programmatically retrieve control metadata of available controls.
+* api-change:``controltower``: Updated Control Tower service documentation for controlcatalog control ARN support with existing Control Tower public APIs
+* api-change:``iam``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``memorydb``: Doc only update for changes to deletion API.
+* api-change:``rds``: This release adds support for specifying optional MinACU parameter in CreateDBShardGroup and ModifyDBShardGroup API. DBShardGroup response will contain MinACU if specified.
+* api-change:``sagemaker``: This release adds support for Amazon EMR Serverless applications in SageMaker Studio for running data processing jobs.
+* api-change:``ssm-quicksetup``: This release adds API support for the QuickSetup feature of AWS Systems Manager
+* api-change:``support``: Doc only updates to CaseDetails
+
+
+1.34.151
+========
+
+* api-change:``appstream``: Added support for Red Hat Enterprise Linux 8 on Amazon AppStream 2.0
+* api-change:``autoscaling``: Increase the length limit for VPCZoneIdentifier from 2047 to 5000
+* api-change:``codepipeline``: AWS CodePipeline V2 type pipelines now support stage level conditions to enable development teams to safely release changes that meet quality and compliance requirements.
+* api-change:``elasticache``: Doc only update for changes to deletion API.
+* api-change:``elb``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``events``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``lexv2-models``: This release adds new capabilities to the AMAZON.QnAIntent: Custom prompting, Guardrails integration and ExactResponse support for Bedrock Knowledge Base.
+* api-change:``logs``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+* api-change:``rolesanywhere``: IAM RolesAnywhere now supports custom role session name on the CreateSession. This release adds the acceptRoleSessionName option to a profile to control whether a role session name will be accepted in a session request with a given profile.
+* api-change:``tnb``: This release adds Network Service Update, through which customers will be able to update their instantiated networks to a new network package. See the documentation for limitations. The release also enhances the Get network operation API to return parameter overrides used during the operation.
+* api-change:``workspaces``: Removing multi-session as it isn't supported for pools
+
+
+1.34.150
+========
+
+* api-change:``elasticache``: Renaming full service name as it appears in developer documentation.
+* api-change:``memorydb``: Renaming full service name as it appears in developer documentation.
+
+
 1.34.149
 ========
 
