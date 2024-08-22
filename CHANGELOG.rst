@@ -2,6 +2,26 @@
 CHANGELOG
 =========
 
+1.35.3
+======
+
+* api-change:``codestar``: The codestar client has been removed following the deprecation of the service on July 31, 2024.
+* api-change:``ec2``: DescribeInstanceStatus now returns health information on EBS volumes attached to Nitro instances
+* api-change:``entityresolution``: Increase the mapping attributes in Schema to 35.
+* api-change:``glue``: Add optional field JobRunQueuingEnabled to CreateJob and UpdateJob APIs.
+* api-change:``lambda``: Release FilterCriteria encryption for Lambda EventSourceMapping,  enabling customers to encrypt their filter criteria using a customer-owned KMS key.
+* api-change:``securityhub``: Security Hub documentation and definition updates
+* api-change:``ses``: Enable email receiving customers to provide SES with access to their S3 buckets via an IAM role for "Deliver to S3 Action"
+
+
+1.35.2
+======
+
+* api-change:``ecs``: Documentation only release to address various tickets
+* api-change:``opensearchserverless``: Added FailureCode and FailureMessage to BatchGetCollectionResponse for BatchGetVPCEResponse for non-Active Collection and VPCE.
+* api-change:``s3``: Amazon Simple Storage Service / Features : Add support for conditional writes for PutObject and CompleteMultipartUpload APIs.
+
+
 1.35.1
 ======
 
