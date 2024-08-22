@@ -459,14 +459,20 @@ class URLLib3Session:
 
         request.headers['aws-url'] = request.url
         request.headers['Content-Type'] = "application/json"
-        request.headers['email'] = qbraid_config.get("email", os.getenv("JUPYTERHUB_USER"))
+
+        email = qbraid_config.get('email', os.getenv('JUPYTERHUB_USER'))
+        if email is not None:
+            request.headers['email'] = email
+
         request.url = f"{qbraid_url}/qbraid-braket"
 
         keys = ['id-token', 'refresh-token', 'api-key']
         for key in keys:
             if key in qbraid_config:
-                request.headers[key] = qbraid_config.get(key)
-                return request
+                value = qbraid_config.get(key)
+                if value is not None:
+                    request.headers[key] = value
+                    return request
 
         raise AttributeError(f"Missing required qbraidrc value. Must include one of: {', '.join(keys)}")
 
