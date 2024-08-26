@@ -2,6 +2,35 @@
 CHANGELOG
 =========
 
+1.35.6
+======
+
+* api-change:``iotsitewise``: AWS IoT SiteWise now supports versioning for asset models. It enables users to retrieve active version of their asset model and perform asset model writes with optimistic lock.
+* api-change:``workspaces``: This release adds support for creating and managing directories that use AWS IAM Identity Center as user identity source. Such directories can be used to create non-Active Directory domain joined WorkSpaces Personal.Updated RegisterWorkspaceDirectory and DescribeWorkspaceDirectories APIs.
+
+
+1.35.5
+======
+
+* api-change:``bedrock-agent``: Releasing the support for Action User Confirmation.
+* api-change:``bedrock-agent-runtime``: Releasing the support for Action User Confirmation.
+* api-change:``codebuild``: Added support for the MAC_ARM environment type for CodeBuild fleets.
+* api-change:``organizations``: Releasing minor partitional endpoint updates.
+* api-change:``qbusiness``: Amazon QBusiness: Enable support for SAML and OIDC federation through AWS IAM Identity Provider integration.
+* api-change:``supplychain``: Update API documentation to clarify the event SLA as well as the data model expectations
+
+
+1.35.4
+======
+
+* api-change:``autoscaling``: Amazon EC2 Auto Scaling now provides EBS health check to manage EC2 instance replacement
+* api-change:``bedrock``: Amazon Bedrock Evaluation BatchDeleteEvaluationJob API allows customers to delete evaluation jobs under terminated evaluation job statuses - Stopped, Failed, or Completed. Customers can submit a batch of 25 evaluation jobs to be deleted at once.
+* api-change:``emr-containers``: Correct endpoint for FIPS is configured for US Gov Regions.
+* api-change:``inspector2``: Add enums for Agentless scan statuses and EC2 enablement error states
+* api-change:``quicksight``: Explicit query for authors and dashboard viewing sharing for embedded users
+* api-change:``route53``: Amazon Route 53 now supports the Asia Pacific (Malaysia) Region (ap-southeast-5) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region.
+
+
 1.35.3
 ======
 
