@@ -15,6 +15,7 @@ import datetime
 import re
 
 import pytest
+from dateutil.tz import tzutc
 
 import botocore.session
 from botocore import UNSIGNED
@@ -1338,6 +1339,41 @@ class TestS3PutObject(BaseS3OperationTest):
                 response["ResponseMetadata"]["HTTPStatusCode"], 200
             )
             self.assertEqual(len(http_stubber.requests), 2)
+
+
+class TestS3ExpiresHeaderResponse(BaseS3OperationTest):
+    def test_valid_expires_value_in_response(self):
+        expires_value = "Thu, 01 Jan 1970 00:00:00 GMT"
+        mock_headers = {'expires': expires_value}
+        s3 = self.session.create_client("s3")
+        with ClientHTTPStubber(s3) as http_stubber:
+            http_stubber.add_response(headers=mock_headers)
+            response = s3.get_object(Bucket='mybucket', Key='mykey')
+            self.assertEqual(
+                response.get('Expires'),
+                datetime.datetime(1970, 1, 1, tzinfo=tzutc()),
+            )
+            self.assertEqual(response.get('ExpiresString'), expires_value)
+
+    def test_invalid_expires_value_in_response(self):
+        expires_value = "Invalid Date"
+        mock_headers = {'expires': expires_value}
+        warning_msg = 'Failed to parse the "Expires" member as a timestamp'
+        s3 = self.session.create_client("s3")
+        with self.assertLogs('botocore.handlers', level='WARNING') as log:
+            with ClientHTTPStubber(s3) as http_stubber:
+                http_stubber.add_response(headers=mock_headers)
+                response = s3.get_object(Bucket='mybucket', Key='mykey')
+                self.assertNotIn(
+                    'expires',
+                    response.get('ResponseMetadata').get('HTTPHeaders'),
+                )
+                self.assertNotIn('Expires', response)
+                self.assertEqual(response.get('ExpiresString'), expires_value)
+                self.assertTrue(
+                    any(warning_msg in entry for entry in log.output),
+                    f'Expected warning message not found in logs. Logs: {log.output}',
+                )
 
 
 class TestWriteGetObjectResponse(BaseS3ClientConfigurationTest):
@@ -3686,3 +3722,44 @@ class TestParameterInjection(BaseS3OperationTest):
             request.context['input_params']['Bucket'], self.BUCKET
         )
         self.assertEqual(request.context['input_params']['Key'], self.KEY)
+
+
+@pytest.mark.parametrize(
+    "bucket, key, expected_path, expected_hostname",
+    [
+        (
+            "mybucket",
+            "../key.txt",
+            "/../key.txt",
+            "mybucket.s3.us-west-2.amazonaws.com",
+        ),
+        (
+            "mybucket",
+            "foo/../key.txt",
+            "/foo/../key.txt",
+            "mybucket.s3.us-west-2.amazonaws.com",
+        ),
+        (
+            "mybucket",
+            "foo/../../key.txt",
+            "/foo/../../key.txt",
+            "mybucket.s3.us-west-2.amazonaws.com",
+        ),
+    ],
+)
+def test_dot_segments_preserved_in_url_path(
+    patched_session, bucket, key, expected_path, expected_hostname
+):
+    s3 = patched_session.create_client(
+        's3',
+        'us-west-2',
+        config=Config(
+            s3={"addressing_style": "virtual"},
+        ),
+    )
+    with ClientHTTPStubber(s3) as http_stubber:
+        http_stubber.add_response()
+        s3.get_object(Bucket=bucket, Key=key)
+        url_parts = urlsplit(http_stubber.requests[0].url)
+        assert url_parts.path == expected_path
+        assert url_parts.hostname == expected_hostname
