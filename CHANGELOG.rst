@@ -2,6 +2,139 @@
 CHANGELOG
 =========
 
+1.35.39
+=======
+
+* api-change:``appflow``: Doc only updates for clarification around OAuth2GrantType for Salesforce.
+* api-change:``elbv2``: Add zonal_shift.config.enabled attribute. Add new AdministrativeOverride construct in the describe-target-health API response to include information about the override status applied to a target.
+* api-change:``emr``: This release provides new parameter "Context" in instance fleet clusters.
+* api-change:``guardduty``: Added a new field for network connection details.
+* api-change:``robomaker``: Documentation update: added support notices to each API action.
+
+
+1.35.38
+=======
+
+* api-change:``acm-pca``: Documentation updates for AWS Private CA.
+* api-change:``dms``: Introduces DescribeDataMigrations, CreateDataMigration, ModifyDataMigration, DeleteDataMigration, StartDataMigration, StopDataMigration operations to SDK. Provides FailedDependencyFault error message.
+* api-change:``ec2``: This release adds support for assigning the billing of shared Amazon EC2 On-Demand Capacity Reservations.
+* api-change:``ecs``: This is a documentation only release that updates to documentation to let customers know that Amazon Elastic Inference is no longer available.
+* api-change:``elastic-inference``: Elastic Inference - Documentation update to add service shutdown notice.
+* api-change:``iotfleetwise``: Refine campaign related API validations
+* api-change:``neptune-graph``: Support for 16 m-NCU graphs available through account allowlisting
+* api-change:``outposts``: Adding new "DELIVERED" enum value for Outposts Order status
+* api-change:``route53resolver``: Route 53 Resolver Forwarding Rules can now include a server name indication (SNI) in the target address for rules that use the DNS-over-HTTPS (DoH) protocol. When a DoH-enabled Outbound Resolver Endpoint forwards a request to a DoH server, it will provide the SNI in the TLS handshake.
+* api-change:``socialmessaging``: This release for AWS End User Messaging includes a public SDK, providing a suite of APIs that enable sending WhatsApp messages to end users.
+* api-change:``timestream-influxdb``: This release updates our regex based validation rules in regards to valid DbInstance and DbParameterGroup name.
+
+
+1.35.37
+=======
+
+* api-change:``codepipeline``: AWS CodePipeline introduces a Compute category
+
+
+1.35.36
+=======
+
+* api-change:``elasticache``: AWS ElastiCache SDK now supports using APIs with newly launched Valkey engine. Please refer to updated AWS ElastiCache public documentation for detailed information on API usage.
+* api-change:``memorydb``: Amazon MemoryDB SDK now supports all APIs for newly launched Valkey engine. Please refer to the updated Amazon MemoryDB public documentation for detailed information on API usage.
+* enhancement:Python: Added provisional Python 3.13 support to Botocore
+
+
+1.35.35
+=======
+
+* api-change:``deadline``: Add support for using the template from a previous job during job creation and listing parameter definitions for a job.
+* api-change:``marketplace-reporting``: Documentation-only update for AWS Marketplace Reporting API.
+* api-change:``qconnect``: This release adds support for the following capabilities: Configuration of the Gen AI system via AIAgent and AIPrompts. Integration support for Bedrock Knowledge Base.
+* api-change:``redshift``: Add validation pattern to S3KeyPrefix on the EnableLogging API
+
+
+1.35.34
+=======
+
+* api-change:``ec2``: Documentation updates for Amazon EC2.
+* api-change:``iot-data``: Add v2 smoke tests and smithy smokeTests trait for SDK testing.
+
+
+1.35.33
+=======
+
+* api-change:``codepipeline``: AWS CodePipeline introduces Commands action that enables you to easily run shell commands as part of your pipeline execution.
+* api-change:``connect``: Public GetMetricDataV2 Grouping increase from 3 to 4
+* api-change:``ec2``: This release includes a new API for modifying instance cpu-options after launch.
+* api-change:``iot``: This release adds support for Custom Authentication with X.509 Client Certificates, support for Custom Client Certificate validation, and support for selecting application protocol and authentication type without requiring TLS ALPN for customer's AWS IoT Domain Configurations.
+* api-change:``marketplace-reporting``: The AWS Marketplace Reporting service introduces the GetBuyerDashboard API. This API returns a dashboard that provides visibility into your organization's AWS Marketplace agreements and associated spend across the AWS accounts in your organization.
+* api-change:``mediapackagev2``: Added support for ClipStartTime on the FilterConfiguration object on OriginEndpoint manifest settings objects. Added support for EXT-X-START tags on produced HLS child playlists.
+* api-change:``quicksight``: QuickSight: Add support for exporting and importing folders in AssetBundle APIs
+* enhancement:AWSCRT: Update awscrt version to 0.22.0
+
+
+1.35.32
+=======
+
+* api-change:``appstream``: Added support for Automatic Time Zone Redirection on Amazon AppStream 2.0
+* api-change:``b2bi``: Added and updated APIs to support outbound EDI transformations
+* api-change:``bedrock-agent-runtime``: Added raw model response and usage metrics to PreProcessing and PostProcessing Trace
+* api-change:``bedrock-runtime``: Added new fields to Amazon Bedrock Guardrails trace
+* api-change:``iotdeviceadvisor``: Add clientToken attribute and implement idempotency for CreateSuiteDefinition.
+* api-change:``ivs-realtime``: Adds new Stage Health EventErrorCodes applicable to RTMP(S) broadcasts. Bug Fix: Enforces that EncoderConfiguration Video height and width must be even-number values.
+* api-change:``s3``: This release introduces a header representing the minimum object size limit for Lifecycle transitions.
+* api-change:``sagemaker``: releasing builtinlcc to public
+* api-change:``workspaces``: WSP is being rebranded to become DCV.
+
+
+1.35.31
+=======
+
+* api-change:``bedrock-agent``: This release adds support to stop an ongoing ingestion job using the StopIngestionJob API in Agents for Amazon Bedrock.
+* api-change:``codeartifact``: Add support for the dual stack endpoints.
+* api-change:``rds``: This release provides additional support for enabling Aurora Limitless Database DB clusters.
+
+
+1.35.30
+=======
+
+* api-change:``bedrock``: Add support for custom models via provisioned throughput for Bedrock Model Evaluation
+* api-change:``clouddirectory``: Add examples for API operations in model.
+* api-change:``connect``: Amazon Connect introduces StartOutboundChatContact API allowing customers to initiate outbound chat contacts
+* api-change:``pricing``: Add examples for API operations in model.
+* api-change:``resource-groups``: This update includes new APIs to support application groups and to allow users to manage resource tag-sync tasks in applications.
+* api-change:``supplychain``: Release DataLakeDataset, DataIntegrationFlow and ResourceTagging APIs for AWS Supply Chain
+* api-change:``timestream-influxdb``: Timestream for InfluxDB now supports port configuration and additional customer-modifiable InfluxDB v2 parameters. This release adds Port to the CreateDbInstance and UpdateDbInstance API, and additional InfluxDB v2 parameters to the CreateDbParameterGroup API.
+* api-change:``verifiedpermissions``: Add examples for API operations in model.
+
+
+1.35.29
+=======
+
+* api-change:``customer-profiles``: Introduces optional RoleArn parameter for PutIntegration request and includes RoleArn in the response of PutIntegration, GetIntegration and ListIntegrations
+* api-change:``quicksight``: Adding personalization in QuickSight data stories. Admins can enable or disable personalization through QuickSight settings.
+* api-change:``securityhub``: Documentation updates for AWS Security Hub
+* api-change:``sesv2``: This release adds support for engagement tracking over Https using custom domains.
+
+
+1.35.28
+=======
+
+* api-change:``chatbot``: Return State and StateReason fields for Chatbot Channel Configurations.
+* api-change:``lambda``: Reverting Lambda resource-based policy and block public access APIs.
+* api-change:``organizations``: Add support for policy operations on the CHATBOT_POLICY policy type.
+* api-change:``pcs``: AWS PCS API documentation - Edited the description of the iamInstanceProfileArn parameter of the CreateComputeNodeGroup and UpdateComputeNodeGroup actions; edited the description of the SlurmCustomSetting data type to list the supported parameters for clusters and compute node groups.
+* api-change:``rds-data``: Documentation update for RDS Data API to reflect support for Aurora MySQL Serverless v2 and Provisioned DB clusters.
+* api-change:``sagemaker``: Adding `TagPropagation` attribute to Sagemaker API
+
+
+1.35.27
+=======
+
+* api-change:``cloudtrail``: Doc-only update for CloudTrail network activity events release (in preview)
+* api-change:``ec2``: Updates to documentation for the transit gateway security group referencing feature.
+* api-change:``fsx``: Doc-only update to address Lustre S3 hard-coded names.
+* api-change:``worklink``: The worklink client has been removed following the deprecation of the service.
+
+
 1.35.26
 =======
 

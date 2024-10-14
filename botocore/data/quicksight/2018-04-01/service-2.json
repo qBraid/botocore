@@ -1492,6 +1492,24 @@
       ],
       "documentation":"<p>Describes the current namespace.</p>"
     },
+    "DescribeQPersonalizationConfiguration":{
+      "name":"DescribeQPersonalizationConfiguration",
+      "http":{
+        "method":"GET",
+        "requestUri":"/accounts/{AwsAccountId}/q-personalization-configuration"
+      },
+      "input":{"shape":"DescribeQPersonalizationConfigurationRequest"},
+      "output":{"shape":"DescribeQPersonalizationConfigurationResponse"},
+      "errors":[
+        {"shape":"AccessDeniedException"},
+        {"shape":"ConflictException"},
+        {"shape":"InvalidParameterValueException"},
+        {"shape":"ThrottlingException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InternalFailureException"}
+      ],
+      "documentation":"<p>Describes a personalization configuration.</p>"
+    },
     "DescribeRefreshSchedule":{
       "name":"DescribeRefreshSchedule",
       "http":{
@@ -3073,6 +3091,25 @@
       ],
       "documentation":"<p>Use the <code>UpdatePublicSharingSettings</code> operation to turn on or turn off the public sharing settings of an Amazon QuickSight dashboard.</p> <p>To use this operation, turn on session capacity pricing for your Amazon QuickSight account.</p> <p>Before you can turn on public sharing on your account, make sure to give public sharing permissions to an administrative user in the Identity and Access Management (IAM) console. For more information on using IAM with Amazon QuickSight, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/security_iam_service-with-iam.html\">Using Amazon QuickSight with IAM</a> in the <i>Amazon QuickSight User Guide</i>.</p>"
     },
+    "UpdateQPersonalizationConfiguration":{
+      "name":"UpdateQPersonalizationConfiguration",
+      "http":{
+        "method":"PUT",
+        "requestUri":"/accounts/{AwsAccountId}/q-personalization-configuration"
+      },
+      "input":{"shape":"UpdateQPersonalizationConfigurationRequest"},
+      "output":{"shape":"UpdateQPersonalizationConfigurationResponse"},
+      "errors":[
+        {"shape":"AccessDeniedException"},
+        {"shape":"ConflictException"},
+        {"shape":"InvalidParameterValueException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ThrottlingException"},
+        {"shape":"InternalFailureException"},
+        {"shape":"ResourceUnavailableException"}
+      ],
+      "documentation":"<p>Updates a personalization configuration.</p>"
+    },
     "UpdateRefreshSchedule":{
       "name":"UpdateRefreshSchedule",
       "http":{
@@ -4159,6 +4196,10 @@
         "Dashboards":{
           "shape":"AssetBundleExportJobDashboardOverridePropertiesList",
           "documentation":"<p>An optional list of structures that control how <code>Dashboard</code> resources are parameterized in the returned CloudFormation template.</p>"
+        },
+        "Folders":{
+          "shape":"AssetBundleExportJobFolderOverridePropertiesList",
+          "documentation":"<p>An optional list of structures that controls how <code>Folder</code> resources are parameterized in the returned CloudFormation template.</p>"
         }
       },
       "documentation":"<p>An optional collection of CloudFormation property configurations that control how the export job is generated.</p>"
@@ -4346,6 +4387,43 @@
     "AssetBundleExportJobErrorList":{
       "type":"list",
       "member":{"shape":"AssetBundleExportJobError"}
+    },
+    "AssetBundleExportJobFolderOverrideProperties":{
+      "type":"structure",
+      "required":[
+        "Arn",
+        "Properties"
+      ],
+      "members":{
+        "Arn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the specific <code>Folder</code> resource whose override properties are configured in this structure.</p>"
+        },
+        "Properties":{
+          "shape":"AssetBundleExportJobFolderPropertyToOverrideList",
+          "documentation":"<p>A list of <code>Folder</code> resource properties to generate variables for in the returned CloudFormation template.</p>"
+        }
+      },
+      "documentation":"<p>Controls how a specific <code>Folder</code> resource is parameterized in the returned CloudFormation template.</p>"
+    },
+    "AssetBundleExportJobFolderOverridePropertiesList":{
+      "type":"list",
+      "member":{"shape":"AssetBundleExportJobFolderOverrideProperties"},
+      "max":50,
+      "min":1
+    },
+    "AssetBundleExportJobFolderPropertyToOverride":{
+      "type":"string",
+      "enum":[
+        "Name",
+        "ParentFolderArn"
+      ]
+    },
+    "AssetBundleExportJobFolderPropertyToOverrideList":{
+      "type":"list",
+      "member":{"shape":"AssetBundleExportJobFolderPropertyToOverride"},
+      "max":10,
+      "min":1
     },
     "AssetBundleExportJobRefreshScheduleOverrideProperties":{
       "type":"structure",
@@ -4894,6 +4972,73 @@
       "type":"list",
       "member":{"shape":"AssetBundleImportJobError"}
     },
+    "AssetBundleImportJobFolderOverrideParameters":{
+      "type":"structure",
+      "required":["FolderId"],
+      "members":{
+        "FolderId":{
+          "shape":"ResourceId",
+          "documentation":"<p>The ID of the folder that you want to apply overrides to.</p>"
+        },
+        "Name":{
+          "shape":"ResourceName",
+          "documentation":"<p>A new name for the folder.</p>"
+        },
+        "ParentFolderArn":{
+          "shape":"Arn",
+          "documentation":"<p>A new parent folder arn. This change can only be applied if the import creates a brand new folder. Existing folders cannot be moved.</p>"
+        }
+      },
+      "documentation":"<p>The override parameters for a single folder that is being imported.</p>"
+    },
+    "AssetBundleImportJobFolderOverrideParametersList":{
+      "type":"list",
+      "member":{"shape":"AssetBundleImportJobFolderOverrideParameters"},
+      "max":50,
+      "min":1
+    },
+    "AssetBundleImportJobFolderOverridePermissions":{
+      "type":"structure",
+      "required":["FolderIds"],
+      "members":{
+        "FolderIds":{
+          "shape":"AssetBundleRestrictiveResourceIdList",
+          "documentation":"<p>A list of folder IDs that you want to apply overrides to. You can use <code>*</code> to override all folders in this asset bundle.</p>"
+        },
+        "Permissions":{"shape":"AssetBundleResourcePermissions"}
+      },
+      "documentation":"<p>An object that contains a list of permissions to be applied to a list of folder IDs.</p>"
+    },
+    "AssetBundleImportJobFolderOverridePermissionsList":{
+      "type":"list",
+      "member":{"shape":"AssetBundleImportJobFolderOverridePermissions"},
+      "max":2,
+      "min":1
+    },
+    "AssetBundleImportJobFolderOverrideTags":{
+      "type":"structure",
+      "required":[
+        "FolderIds",
+        "Tags"
+      ],
+      "members":{
+        "FolderIds":{
+          "shape":"AssetBundleRestrictiveResourceIdList",
+          "documentation":"<p>A list of folder IDs that you want to apply overrides to. You can use <code>*</code> to override all folders in this asset bundle.</p>"
+        },
+        "Tags":{
+          "shape":"TagList",
+          "documentation":"<p>A list of tags for the folders that you want to apply overrides to.</p>"
+        }
+      },
+      "documentation":"<p>An object that contains a list of tags to be assigned to a list of folder IDs.</p>"
+    },
+    "AssetBundleImportJobFolderOverrideTagsList":{
+      "type":"list",
+      "member":{"shape":"AssetBundleImportJobFolderOverrideTags"},
+      "max":5,
+      "min":1
+    },
     "AssetBundleImportJobOverrideParameters":{
       "type":"structure",
       "members":{
@@ -4928,6 +5073,10 @@
         "Dashboards":{
           "shape":"AssetBundleImportJobDashboardOverrideParametersList",
           "documentation":"<p>A list of overrides for any <code>Dashboard</code> resources that are present in the asset bundle that is imported.</p>"
+        },
+        "Folders":{
+          "shape":"AssetBundleImportJobFolderOverrideParametersList",
+          "documentation":"<p>A list of overrides for any <code>Folder</code> resources that are present in the asset bundle that is imported.</p>"
         }
       },
       "documentation":"<p>A list of overrides that modify the asset bundle resource configuration before the resource is imported.</p>"
@@ -4954,6 +5103,10 @@
         "Dashboards":{
           "shape":"AssetBundleImportJobDashboardOverridePermissionsList",
           "documentation":"<p>A list of permissions overrides for any <code>Dashboard</code> resources that are present in the asset bundle that is imported.</p>"
+        },
+        "Folders":{
+          "shape":"AssetBundleImportJobFolderOverridePermissionsList",
+          "documentation":"<p>A list of permissions for the folders that you want to apply overrides to.</p>"
         }
       },
       "documentation":"<p>A structure that contains the override permission configurations that modify the permissions for specified resources before the resource is imported.</p>"
@@ -4984,6 +5137,10 @@
         "Dashboards":{
           "shape":"AssetBundleImportJobDashboardOverrideTagsList",
           "documentation":"<p>A list of tag overrides for any <code>Dashboard</code> resources that are present in the asset bundle that is imported.</p>"
+        },
+        "Folders":{
+          "shape":"AssetBundleImportJobFolderOverrideTagsList",
+          "documentation":"<p>A list of tag overrides for any <code>Folder</code> resources that are present in the asset bundle that is imported.</p>"
         }
       },
       "documentation":"<p>A structure that contains the override tag configuration that modify the tags that are assigned to specified resources before the resource is imported.</p>"
@@ -13404,6 +13561,14 @@
         "Warnings":{
           "shape":"AssetBundleExportJobWarningList",
           "documentation":"<p>An array of warning records that describe the analysis or dashboard that is exported. This array includes UI errors that can be skipped during the validation process.</p> <p>This property only appears if <code>StrictModeForAllResources</code> in <code>ValidationStrategy</code> is set to <code>FALSE</code>.</p>"
+        },
+        "IncludeFolderMemberships":{
+          "shape":"Boolean",
+          "documentation":"<p>The include folder memberships flag.</p>"
+        },
+        "IncludeFolderMembers":{
+          "shape":"IncludeFolderMembers",
+          "documentation":"<p>A setting that determines whether folder members are included.</p>"
         }
       }
     },
@@ -14508,6 +14673,36 @@
         "Namespace":{
           "shape":"NamespaceInfoV2",
           "documentation":"<p>The information about the namespace that you're describing. The response includes the namespace ARN, name, Amazon Web Services Region, creation status, and identity store. <code>DescribeNamespace</code> also works for namespaces that are in the process of being created. For incomplete namespaces, this API operation lists the namespace error types and messages associated with the creation process.</p>"
+        },
+        "RequestId":{
+          "shape":"String",
+          "documentation":"<p>The Amazon Web Services request ID for this operation.</p>"
+        },
+        "Status":{
+          "shape":"StatusCode",
+          "documentation":"<p>The HTTP status of the request.</p>",
+          "location":"statusCode"
+        }
+      }
+    },
+    "DescribeQPersonalizationConfigurationRequest":{
+      "type":"structure",
+      "required":["AwsAccountId"],
+      "members":{
+        "AwsAccountId":{
+          "shape":"AwsAccountId",
+          "documentation":"<p>The ID of the Amazon Web Services account that contains the personalization configuration that the user wants described.</p>",
+          "location":"uri",
+          "locationName":"AwsAccountId"
+        }
+      }
+    },
+    "DescribeQPersonalizationConfigurationResponse":{
+      "type":"structure",
+      "members":{
+        "PersonalizationMode":{
+          "shape":"PersonalizationMode",
+          "documentation":"<p>A value that indicates whether personalization is enabled or not.</p>"
         },
         "RequestId":{
           "shape":"String",
@@ -18660,6 +18855,14 @@
       "documentation":"<p>The identity type specified isn't supported. Supported identity types include <code>IAM</code> and <code>QUICKSIGHT</code>.</p>",
       "error":{"httpStatusCode":403},
       "exception":true
+    },
+    "IncludeFolderMembers":{
+      "type":"string",
+      "enum":[
+        "RECURSE",
+        "ONE_LEVEL",
+        "NONE"
+      ]
     },
     "IncrementalRefresh":{
       "type":"structure",
@@ -23390,6 +23593,13 @@
       "max":1000,
       "min":1
     },
+    "PersonalizationMode":{
+      "type":"string",
+      "enum":[
+        "ENABLED",
+        "DISABLED"
+      ]
+    },
     "PhysicalTable":{
       "type":"structure",
       "members":{
@@ -27744,6 +27954,14 @@
         "ValidationStrategy":{
           "shape":"AssetBundleExportJobValidationStrategy",
           "documentation":"<p>An optional parameter that determines which validation strategy to use for the export job. If <code>StrictModeForAllResources</code> is set to <code>TRUE</code>, strict validation for every error is enforced. If it is set to <code>FALSE</code>, validation is skipped for specific UI errors that are shown as warnings. The default value for <code>StrictModeForAllResources</code> is <code>FALSE</code>.</p>"
+        },
+        "IncludeFolderMemberships":{
+          "shape":"Boolean",
+          "documentation":"<p>A Boolean that determines if the exported asset carries over information about the folders that the asset is a member of. </p>"
+        },
+        "IncludeFolderMembers":{
+          "shape":"IncludeFolderMembers",
+          "documentation":"<p>A setting that indicates whether you want to include folder assets. You can also use this setting to recusrsively include all subfolders of an exported folder.</p>"
         }
       }
     },
@@ -30038,6 +30256,16 @@
       "type":"list",
       "member":{"shape":"TopicColumn"}
     },
+    "TopicConfigOptions":{
+      "type":"structure",
+      "members":{
+        "QBusinessInsightsEnabled":{
+          "shape":"NullableBoolean",
+          "documentation":"<p>Enables Amazon Q Business Insights for a <code>Topic</code>.</p>"
+        }
+      },
+      "documentation":"<p>Configuration options for a <code>Topic</code>.</p>"
+    },
     "TopicConstantValue":{
       "type":"structure",
       "members":{
@@ -30096,6 +30324,10 @@
         "DataSets":{
           "shape":"Datasets",
           "documentation":"<p>The data sets that the topic is associated with.</p>"
+        },
+        "ConfigOptions":{
+          "shape":"TopicConfigOptions",
+          "documentation":"<p>Configuration options for a <code>Topic</code>.</p>"
         }
       },
       "documentation":"<p>A structure that describes the details of a topic, such as its name, description, and associated data sets.</p>"
@@ -32450,6 +32682,43 @@
     "UpdatePublicSharingSettingsResponse":{
       "type":"structure",
       "members":{
+        "RequestId":{
+          "shape":"String",
+          "documentation":"<p>The Amazon Web Services request ID for this operation.</p>"
+        },
+        "Status":{
+          "shape":"StatusCode",
+          "documentation":"<p>The HTTP status of the request.</p>",
+          "location":"statusCode"
+        }
+      }
+    },
+    "UpdateQPersonalizationConfigurationRequest":{
+      "type":"structure",
+      "required":[
+        "AwsAccountId",
+        "PersonalizationMode"
+      ],
+      "members":{
+        "AwsAccountId":{
+          "shape":"AwsAccountId",
+          "documentation":"<p>The ID of the Amazon Web Services account account that contains the personalization configuration that the user wants to update.</p>",
+          "location":"uri",
+          "locationName":"AwsAccountId"
+        },
+        "PersonalizationMode":{
+          "shape":"PersonalizationMode",
+          "documentation":"<p>An option to allow Amazon QuickSight to customize data stories with user specific metadata, specifically location and job information, in your IAM Identity Center instance.</p>"
+        }
+      }
+    },
+    "UpdateQPersonalizationConfigurationResponse":{
+      "type":"structure",
+      "members":{
+        "PersonalizationMode":{
+          "shape":"PersonalizationMode",
+          "documentation":"<p>The personalization mode that is used for the personalization configuration.</p>"
+        },
         "RequestId":{
           "shape":"String",
           "documentation":"<p>The Amazon Web Services request ID for this operation.</p>"
