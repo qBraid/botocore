@@ -2,6 +2,74 @@
 CHANGELOG
 =========
 
+1.35.45
+=======
+
+* api-change:``application-insights``: This feature enables customers to specify SNS Topic ARN. CloudWatch Application Insights (CWAI) will utilize this ARN to send problem notifications.
+* api-change:``autoscaling``: Adds support for removing the PlacementGroup setting on an Auto Scaling Group through the UpdateAutoScalingGroup API.
+* api-change:``bedrock-agent-runtime``: Knowledge Bases for Amazon Bedrock now supports custom prompts and model parameters in the orchestrationConfiguration of the RetrieveAndGenerate API. The modelArn field accepts Custom Models and Imported Models ARNs.
+* api-change:``dms``: Added support for tagging in StartReplicationTaskAssessmentRun API and introduced IsLatestTaskAssessmentRun and ResultStatistic fields for enhanced tracking and assessment result statistics.
+* api-change:``ec2``: Amazon EC2 now allows you to create network interfaces with just the EFA driver and no ENA driver by specifying the network interface type as efa-only.
+* api-change:``eks``: This release adds support for Amazon Application Recovery Controller (ARC) zonal shift and zonal autoshift with EKS that enhances the resiliency of multi-AZ cluster environments
+* api-change:``fms``: Update AWS WAF policy - add the option to retrofit existing web ACLs instead of creating all new web ACLs.
+* api-change:``payment-cryptography-data``: Adding new API to generate authenticated scripts for EMV pin change use cases.
+* api-change:``wafv2``: Add a property to WebACL to indicate whether it's been retrofitted by Firewall Manager.
+* enhancement:``s3``: Handle HTTP 200 responses with error information for all supported s3 operations.
+
+
+1.35.44
+=======
+
+* api-change:``athena``: Removing FEDERATED from Create/List/Delete/GetDataCatalog API
+* api-change:``bedrock``: Adding converse support to CMI API's
+* api-change:``bedrock-runtime``: Added converse support for custom imported models
+* api-change:``datazone``: Adding the following project member designations: PROJECT_CATALOG_VIEWER, PROJECT_CATALOG_CONSUMER and PROJECT_CATALOG_STEWARD in the CreateProjectMembership API and PROJECT_CATALOG_STEWARD designation in the AddPolicyGrant API.
+* api-change:``ec2``: RequestSpotInstances and RequestSpotFleet feature release.
+
+
+1.35.43
+=======
+
+* api-change:``bedrock-agent``: Removing support for topK property in PromptModelInferenceConfiguration object, Making PromptTemplateConfiguration property as required, Limiting the maximum PromptVariant to 1
+* api-change:``dataexchange``: This release adds Data Grant support, through which customers can programmatically create data grants to share with other AWS accounts and accept data grants from other AWS accounts.
+* api-change:``ecs``: This is an Amazon ECS documentation only update to address tickets.
+* api-change:``pinpoint-sms-voice-v2``: Added the registrations status of REQUIRES_AUTHENTICATION
+* api-change:``pipes``: This release adds validation to require specifying a SecurityGroup and Subnets in the Vpc object under PipesSourceSelfManagedKafkaParameters. It also adds support for iso-e, iso-f, and other non-commercial partitions in ARN parameters.
+* api-change:``quicksight``: Add StartDashboardSnapshotJobSchedule API. RestoreAnalysis now supports restoring analysis to folders.
+* api-change:``rds``: Updates Amazon RDS documentation for TAZ IAM support
+* api-change:``workspaces``: Updated the DomainName pattern for Active Directory
+
+
+1.35.42
+=======
+
+* api-change:``s3``: Add support for the new optional bucket-region and prefix query parameters in the ListBuckets API. For ListBuckets requests that express pagination, Amazon S3 will now return both the bucket names and associated AWS regions in the response.
+* bugfix:Config: Fixed sigv4a_signing_region_set resolution when set in environment or config file.
+
+
+1.35.41
+=======
+
+* api-change:``amplify``: Added sourceUrlType field to StartDeployment request
+* api-change:``cloudformation``: Documentation update for AWS CloudFormation API Reference.
+* api-change:``codebuild``: Enable proxy for reserved capacity fleet.
+* api-change:``ivs``: On a channel that you own, you can now replace an ongoing stream with a new stream by streaming up with the priority parameter appended to the stream key.
+* api-change:``qbusiness``: Amazon Q Business now supports embedding the Amazon Q Business web experience on third-party websites.
+* api-change:``redshift``: This release launches the CreateIntegration, DeleteIntegration, DescribeIntegrations and ModifyIntegration APIs to create and manage Amazon Redshift Zero-ETL Integrations.
+* api-change:``resiliencehub``: AWS Resilience Hub now integrates with the myApplications platform, enabling customers to easily assess the resilience of applications defined in myApplications. The new Resiliency widget provides visibility into application resilience and actionable recommendations for improvement.
+* api-change:``sesv2``: This release adds support for email maximum delivery seconds that allows senders to control the time within which their emails are attempted for delivery.
+
+
+1.35.40
+=======
+
+* api-change:``codepipeline``: AWS CodePipeline V2 type pipelines now support automatically retrying failed stages and skipping stage for failed entry conditions.
+* api-change:``mailmanager``: Mail Manager support for viewing and exporting metadata of archived messages.
+* api-change:``securitylake``: This release updates request validation regex for resource ARNs.
+* api-change:``supplychain``: This release adds AWS Supply Chain instance management functionality. Specifically adding CreateInstance, DeleteInstance, GetInstance, ListInstances, and UpdateInstance APIs.
+* api-change:``transfer``: This release enables customers using SFTP connectors to query the transfer status of their files to meet their monitoring needs as well as orchestrate post transfer actions.
+
+
 1.35.39
 =======
 
