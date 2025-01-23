@@ -54,6 +54,7 @@ from botocore.exceptions import (
 )
 from botocore.regions import EndpointResolverBuiltins
 from botocore.signers import (
+    add_dsql_generate_db_auth_token_methods,
     add_generate_db_auth_token,
     add_generate_presigned_post,
     add_generate_presigned_url,
@@ -61,8 +62,6 @@ from botocore.signers import (
 from botocore.utils import (
     SAFE_CHARS,
     ArnParser,
-    conditionally_calculate_checksum,
-    conditionally_calculate_md5,
     percent_encode,
     switch_host_with_param,
 )
@@ -1245,7 +1244,7 @@ def document_expires_shape(section, event_name, **kwargs):
 def _handle_200_error(operation_model, response_dict, **kwargs):
     # S3 can return a 200 response with an error embedded in the body.
     # Convert the 200 to a 500 for retry resolution in ``_update_status_code``.
-    if not response_dict or operation_model.has_streaming_output:
+    if not _should_handle_200_error(operation_model, response_dict):
         # Operations with streaming response blobs are excluded as they
         # can't be reliably distinguished from an S3 error.
         return
@@ -1256,6 +1255,22 @@ def _handle_200_error(operation_model, response_dict, **kwargs):
         logger.debug(
             f"Error found for response with 200 status code: {response_dict['body']}."
         )
+
+
+def _should_handle_200_error(operation_model, response_dict):
+    output_shape = operation_model.output_shape
+    if (
+        not response_dict
+        or operation_model.has_event_stream_output
+        or not output_shape
+    ):
+        return False
+    payload = output_shape.serialization.get('payload')
+    if payload is not None:
+        payload_shape = output_shape.members[payload]
+        if payload_shape.type_name in ('blob', 'string'):
+            return False
+    return True
 
 
 def _update_status_code(response, **kwargs):
@@ -1269,6 +1284,39 @@ def _update_status_code(response, **kwargs):
     )
     if http_response.status_code != parsed_status_code:
         http_response.status_code = parsed_status_code
+
+
+def add_query_compatibility_header(model, params, **kwargs):
+    if not model.service_model.is_query_compatible:
+        return
+    params['headers']['x-amzn-query-mode'] = 'true'
+
+
+def _handle_request_validation_mode_member(params, model, **kwargs):
+    client_config = kwargs.get("context", {}).get("client_config")
+    if client_config is None:
+        return
+    response_checksum_validation = client_config.response_checksum_validation
+    http_checksum = model.http_checksum
+    mode_member = http_checksum.get("requestValidationModeMember")
+    if (
+        mode_member is not None
+        and response_checksum_validation == "when_supported"
+    ):
+        params.setdefault(mode_member, "ENABLED")
+
+
+def _set_extra_headers_for_unsigned_request(
+    request, signature_version, **kwargs
+):
+    # When sending a checksum in the trailer of an unsigned chunked request, S3
+    # requires us to set the "X-Amz-Content-SHA256" header to "STREAMING-UNSIGNED-PAYLOAD-TRAILER".
+    checksum_context = request.context.get("checksum", {})
+    algorithm = checksum_context.get("request_algorithm", {})
+    in_trailer = algorithm.get("in") == "trailer"
+    headers = request.headers
+    if signature_version == botocore.UNSIGNED and in_trailer:
+        headers["X-Amz-Content-SHA256"] = "STREAMING-UNSIGNED-PAYLOAD-TRAILER"
 
 
 # This is a list of (event_name, handler).
@@ -1303,6 +1351,7 @@ BUILTIN_HANDLERS = [
     ('before-parse.s3.*', handle_expires_header),
     ('before-parse.s3.*', _handle_200_error, REGISTER_FIRST),
     ('before-parameter-build', generate_idempotent_uuid),
+    ('before-parameter-build', _handle_request_validation_mode_member),
     ('before-parameter-build.s3', validate_bucket_name),
     ('before-parameter-build.s3', remove_bucket_from_url_paths_from_model),
     (
@@ -1332,13 +1381,11 @@ BUILTIN_HANDLERS = [
     ('docs.response-params.s3.*.complete-section', document_expires_shape),
     ('before-endpoint-resolution.s3', customize_endpoint_resolver_builtins),
     ('before-call', add_recursion_detection_header),
+    ('before-call', add_query_compatibility_header),
     ('before-call.s3', add_expect_header),
     ('before-call.glacier', add_glacier_version),
     ('before-call.apigateway', add_accept_header),
-    ('before-call.s3.PutObject', conditionally_calculate_checksum),
-    ('before-call.s3.UploadPart', conditionally_calculate_md5),
     ('before-call.s3.DeleteObjects', escape_xml_payload),
-    ('before-call.s3.DeleteObjects', conditionally_calculate_checksum),
     ('before-call.s3.PutBucketLifecycleConfiguration', escape_xml_payload),
     ('before-call.glacier.UploadArchive', add_glacier_checksums),
     ('before-call.glacier.UploadMultipartPart', add_glacier_checksums),
@@ -1375,6 +1422,7 @@ BUILTIN_HANDLERS = [
     ('before-parameter-build.route53', fix_route53_ids),
     ('before-parameter-build.glacier', inject_account_id),
     ('before-sign.s3', remove_arn_from_signing_path),
+    ('before-sign.s3', _set_extra_headers_for_unsigned_request),
     (
         'before-sign.polly.SynthesizeSpeech',
         remove_content_type_header_for_presigning,
@@ -1468,6 +1516,10 @@ BUILTIN_HANDLERS = [
             ],
         ).hide_param,
     ),
+    #############
+    # DSQL
+    #############
+    ('creating-client-class.dsql', add_dsql_generate_db_auth_token_methods),
     #############
     # RDS
     #############
