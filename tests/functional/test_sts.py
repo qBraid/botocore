@@ -10,8 +10,8 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+import datetime
 import re
-from datetime import datetime
 
 from botocore.config import Config
 from botocore.stub import Stubber
@@ -24,7 +24,7 @@ from tests import (
 )
 
 _V4_SIGNING_REGION_REGEX = re.compile(
-    r'AWS4-HMAC-SHA256 ' r'Credential=\w+/\d+/(?P<signing_region>[a-z0-9-]+)/'
+    r'AWS4-HMAC-SHA256 Credential=\w+/\d+/(?P<signing_region>[a-z0-9-]+)/'
 )
 
 
@@ -37,19 +37,21 @@ class TestSTSPresignedUrl(BaseSessionTest):
         self.stubber.activate()
 
     def test_presigned_url_contains_no_content_type(self):
-        timestamp = datetime(2017, 3, 22, 0, 0)
+        timestamp = datetime.datetime(
+            2017, 3, 22, 0, 0, tzinfo=datetime.timezone.utc
+        )
         with mock.patch('botocore.auth.datetime.datetime') as _datetime:
-            _datetime.utcnow.return_value = timestamp
+            _datetime.now.return_value = timestamp
             url = self.client.generate_presigned_url('get_caller_identity', {})
 
         # There should be no 'content-type' in x-amz-signedheaders
         expected_url = (
-            'https://sts.amazonaws.com/?Action=GetCallerIdentity&'
+            'https://sts.us-west-2.amazonaws.com/?Action=GetCallerIdentity&'
             'Version=2011-06-15&X-Amz-Algorithm=AWS4-HMAC-SHA256&'
-            'X-Amz-Credential=access_key%2F20170322%2Fus-east-1%2Fsts%2F'
+            'X-Amz-Credential=access_key%2F20170322%2Fus-west-2%2Fsts%2F'
             'aws4_request&X-Amz-Date=20170322T000000Z&X-Amz-Expires=3600&'
-            'X-Amz-SignedHeaders=host&X-Amz-Signature=767845d2ee858069a598d5f'
-            '8b497b75c7d57356885b1b3dba46dbbc0fc62bf5a'
+            'X-Amz-SignedHeaders=host&X-Amz-Signature=6544a55c35d587a56d10'
+            '41de1abf443791f63be1f75f555ca11b609879cd2020'
         )
         assert_url_equal(url, expected_url)
 
@@ -67,7 +69,7 @@ class TestSTSEndpoints(BaseSessionTest):
         )
 
     def set_sts_regional_for_config_file(self, fileobj, config_val):
-        fileobj.write('[default]\n' f'sts_regional_endpoints={config_val}\n')
+        fileobj.write(f'[default]\nsts_regional_endpoints={config_val}\n')
         fileobj.flush()
         self.environ['AWS_CONFIG_FILE'] = fileobj.name
 
@@ -212,7 +214,24 @@ class TestSTSEndpoints(BaseSessionTest):
             expected_signing_region='us-east-1',
         )
 
-    def test_defaults_to_global_endpoint_for_legacy_region(self):
+    def test_defaults_to_regional_endpoint(self):
+        sts = self.create_sts_client('us-west-2')
+        self.assert_request_sent(
+            sts,
+            expected_url='https://sts.us-west-2.amazonaws.com/',
+            expected_signing_region='us-west-2',
+        )
+
+    def test_defaults_to_regional_endpoint_for_us_east_1(self):
+        sts = self.create_sts_client('us-east-1')
+        self.assert_request_sent(
+            sts,
+            expected_url='https://sts.us-east-1.amazonaws.com/',
+            expected_signing_region='us-east-1',
+        )
+
+    def test_defaults_to_global_endpoint_for_legacy(self):
+        self.environ['AWS_STS_REGIONAL_ENDPOINTS'] = 'legacy'
         sts = self.create_sts_client('us-west-2')
         self.assert_request_sent(
             sts,

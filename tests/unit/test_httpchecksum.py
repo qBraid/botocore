@@ -662,7 +662,7 @@ class TestAwsChunkedWrapper(unittest.TestCase):
         bytes = BytesIO(b"abcdefghijklmnopqrstuvwxyz")
         wrapper = AwsChunkedWrapper(bytes)
         body = wrapper.read()
-        expected = b"1a\r\n" b"abcdefghijklmnopqrstuvwxyz\r\n" b"0\r\n\r\n"
+        expected = b"1a\r\nabcdefghijklmnopqrstuvwxyz\r\n0\r\n\r\n"
         self.assertEqual(body, expected)
 
     def test_multi_chunk_body(self):
@@ -678,7 +678,7 @@ class TestAwsChunkedWrapper(unittest.TestCase):
             b"6\r\n"
             b"uvwxyz\r\n"
             b"0\r\n\r\n"
-        )
+        )  # fmt: skip
         self.assertEqual(body, expected)
 
     def test_read_returns_less_data(self):
@@ -702,7 +702,7 @@ class TestAwsChunkedWrapper(unittest.TestCase):
             b"8\r\n"
             b"stuvwxyz\r\n"
             b"0\r\n\r\n"
-        )
+        )  # fmt: skip
         self.assertEqual(body, expected)
 
     def test_single_chunk_body_with_checksum(self):
@@ -712,9 +712,7 @@ class TestAwsChunkedWrapper(unittest.TestCase):
             checksum_name="checksum",
         )
         body = wrapper.read()
-        expected = (
-            b"b\r\n" b"hello world\r\n" b"0\r\n" b"checksum:DUoRhQ==\r\n\r\n"
-        )
+        expected = b"b\r\nhello world\r\n0\r\nchecksum:DUoRhQ==\r\n\r\n"
         self.assertEqual(body, expected)
 
     def test_multi_chunk_body_with_checksum(self):
@@ -734,7 +732,7 @@ class TestAwsChunkedWrapper(unittest.TestCase):
             b"d\r\n"
             b"0\r\n"
             b"checksum:DUoRhQ==\r\n\r\n"
-        )
+        )  # fmt: skip
         self.assertEqual(body, expected)
 
     def test_multi_chunk_body_with_checksum_iter(self):
@@ -878,3 +876,38 @@ class TestStreamingChecksumBody(unittest.TestCase):
         with self.assertRaises(FlexibleChecksumError):
             for chunk in self.wrapper:
                 pass
+
+    def test_readinto_good(self):
+        chunk = bytearray(6)
+        self.assertEqual(6, self.wrapper.readinto(chunk))
+        self.assertEqual(chunk, bytearray(b"hello "))
+        self.assertEqual(5, self.wrapper.readinto(chunk))
+        # Note the trailing space here comes from the fact we've only got 5
+        # bytes left to read from the stream into a 6 byte buffer, so it leaves
+        # the last byte untouched, which is the space character from the
+        # previous read.
+        self.assertEqual(chunk, bytearray(b"world "))
+        # Whole body has been read, next read signals the end of the stream and
+        # validates the checksum of the body contents read
+        self.wrapper.readinto(chunk)
+
+    def test_readinto_bad(self):
+        self._make_wrapper("duorhq==")
+        chunk = bytearray(6)
+        self.assertEqual(6, self.wrapper.readinto(chunk))
+        self.assertEqual(chunk, bytearray(b"hello "))
+        self.assertEqual(5, self.wrapper.readinto(chunk))
+        self.assertEqual(chunk, bytearray(b"world "))
+        # Whole body has been read, next read signals the end of the stream and
+        # validates the checksum of the body contents read
+        with self.assertRaises(FlexibleChecksumError):
+            self.wrapper.readinto(chunk)
+
+    def test_readinto_zero_bytes(self):
+        # Test that readinto returns 0 when 0 bytes are requested
+        chunk = bytearray(0)
+        self.assertEqual(0, self.wrapper.readinto(chunk))
+        self.assertEqual(chunk, bytearray(b""))
+        # Whole body has been read, next read signals the end of the stream and
+        # validates the checksum of the body contents read
+        self.wrapper.readinto(chunk)

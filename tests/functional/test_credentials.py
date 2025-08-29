@@ -20,6 +20,7 @@ import threading
 import time
 import uuid
 from datetime import datetime, timedelta, timezone
+from unittest.mock import patch
 
 import pytest
 from dateutil.tz import tzlocal
@@ -50,6 +51,7 @@ from botocore.tokens import SSOTokenProvider
 from botocore.utils import datetime2timestamp
 from tests import (
     BaseEnvVar,
+    ClientHTTPStubber,
     IntegerRefresher,
     SessionHTTPStubber,
     StubbedSession,
@@ -57,6 +59,10 @@ from tests import (
     random_chars,
     temporary_file,
     unittest,
+)
+from tests.functional.test_useragent import (
+    get_captured_ua_strings,
+    parse_registered_feature_ids,
 )
 
 TIME_IN_ONE_HOUR = datetime.now(tz=timezone.utc) + timedelta(hours=1)
@@ -576,7 +582,9 @@ class TestAssumeRole(BaseAssumeRoleTest):
         token_cache_key = 'f395038c92f1828cbb3991d2d6152d326b895606'
         cached_token = {
             'accessToken': 'a.token',
-            'expiresAt': self.some_future_time(),
+            'expiresAt': self.some_future_time().strftime(
+                "%Y-%m-%dT%H:%M:%SZ"
+            ),
         }
         temp_cache = JSONFileCache(self.tempdir)
         temp_cache[token_cache_key] = cached_token
@@ -834,7 +842,7 @@ class TestAssumeRoleWithWebIdentity(BaseAssumeRoleTest):
         self.assert_session_credentials(expected_params, profile='A')
 
     def test_assume_role_env_vars(self):
-        config = '[profile B]\n' 'region = us-west-2\n'
+        config = '[profile B]\nregion = us-west-2\n'
         self.write_config(config)
         self.environ['AWS_ROLE_ARN'] = 'arn:aws:iam::123456789:role/RoleB'
         self.environ['AWS_WEB_IDENTITY_TOKEN_FILE'] = self.token_file
@@ -885,7 +893,7 @@ class TestProcessProvider(unittest.TestCase):
         self.environ_patch.stop()
 
     def test_credential_process(self):
-        config = '[profile processcreds]\n' 'credential_process = %s\n'
+        config = '[profile processcreds]\ncredential_process = %s\n'
         config = config % self.credential_process
         with temporary_file('w') as f:
             f.write(config)
@@ -898,8 +906,7 @@ class TestProcessProvider(unittest.TestCase):
 
     def test_credential_process_returns_error(self):
         config = (
-            '[profile processcreds]\n'
-            'credential_process = %s --raise-error\n'
+            '[profile processcreds]\ncredential_process = %s --raise-error\n'
         )
         config = config % self.credential_process
         with temporary_file('w') as f:
@@ -1182,3 +1189,91 @@ class TestContextCredentials(unittest.TestCase):
             s3.list_buckets()
             request = stubber.requests[0]
             assert self.ACCESS_KEY in str(request.headers.get('Authorization'))
+
+
+class TestFeatureIdRegistered:
+    @patch(
+        "botocore.utils.InstanceMetadataFetcher.retrieve_iam_role_credentials"
+    )
+    @patch("botocore.credentials.ContainerProvider.load", return_value=None)
+    @patch("botocore.credentials.ConfigProvider.load", return_value=None)
+    @patch(
+        "botocore.credentials.SharedCredentialProvider.load", return_value=None
+    )
+    @patch("botocore.credentials.EnvProvider.load", return_value=None)
+    def test_user_agent_has_imds_credentials_feature_id(
+        self,
+        _unused_mock_env_load,
+        _unused_mock_shared_load,
+        _unused_mock_config_load,
+        _unused_mock_container_load,
+        mock_retrieve_iam_role_credentials,
+        patched_session,
+    ):
+        fake_creds = {
+            "role_name": "FAKEROLE",
+            "access_key": "FAKEACCESSKEY",
+            "secret_key": "FAKESECRET",
+            "token": "FAKETOKEN",
+            "expiry_time": "2099-01-01T00:00:00Z",
+        }
+        mock_retrieve_iam_role_credentials.return_value = fake_creds
+
+        client = patched_session.create_client("s3", region_name="us-east-1")
+        with ClientHTTPStubber(client, strict=True) as http_stubber:
+            # We want to call this twice to assert that the feature id exists
+            # for multiple calls with the same credentials
+            http_stubber.add_response()
+            http_stubber.add_response()
+            client.list_buckets()
+            client.list_buckets()
+
+        ua_string = get_captured_ua_strings(http_stubber)
+        feature_list_one = parse_registered_feature_ids(ua_string[0])
+        feature_list_two = parse_registered_feature_ids(ua_string[1])
+        assert '0' in feature_list_one and '0' in feature_list_two
+
+    @patch("botocore.credentials.ContainerMetadataFetcher.retrieve_full_uri")
+    @patch("botocore.credentials.ConfigProvider.load", return_value=None)
+    @patch(
+        "botocore.credentials.SharedCredentialProvider.load", return_value=None
+    )
+    @patch("botocore.credentials.EnvProvider.load", return_value=None)
+    def test_user_agent_has_http_credentials_feature_id(
+        self,
+        _unused_mock_env_load,
+        _unused_mock_shared_load,
+        _unused_mock_config_load,
+        mock_load_http_credentials,
+        monkeypatch,
+        patched_session,
+    ):
+        environ = {
+            'AWS_CONTAINER_CREDENTIALS_FULL_URI': 'http://localhost/foo',
+            'AWS_CONTAINER_AUTHORIZATION_TOKEN': 'Basic auth-token',
+        }
+        for var in environ:
+            monkeypatch.setenv(var, environ[var])
+
+        fake_creds = {
+            "AccessKeyId": "FAKEACCESSKEY",
+            "SecretAccessKey": "FAKESECRET",
+            "Token": "FAKETOKEN",
+            "Expiration": "2099-01-01T00:00:00Z",
+            "AccountId": "01234567890",
+        }
+        mock_load_http_credentials.return_value = fake_creds
+
+        client = patched_session.create_client("s3", region_name="us-east-1")
+        with ClientHTTPStubber(client, strict=True) as http_stubber:
+            # We want to call this twice to assert that the feature id exists
+            # for multiple calls with the same credentials
+            http_stubber.add_response()
+            http_stubber.add_response()
+            client.list_buckets()
+            client.list_buckets()
+
+        ua_string = get_captured_ua_strings(http_stubber)
+        feature_list_one = parse_registered_feature_ids(ua_string[0])
+        feature_list_two = parse_registered_feature_ids(ua_string[1])
+        assert 'z' in feature_list_one and 'z' in feature_list_two

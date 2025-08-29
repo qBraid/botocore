@@ -57,10 +57,30 @@ _USERAGENT_SDK_NAME = 'Botocore'
 _USERAGENT_FEATURE_MAPPINGS = {
     'WAITER': 'B',
     'PAGINATOR': 'C',
+    "RETRY_MODE_LEGACY": "D",
+    "RETRY_MODE_STANDARD": "E",
+    "RETRY_MODE_ADAPTIVE": "F",
     'S3_TRANSFER': 'G',
+    'GZIP_REQUEST_COMPRESSION': 'L',
     'PROTOCOL_RPC_V2_CBOR': 'M',
     'ENDPOINT_OVERRIDE': 'N',
+    'ACCOUNT_ID_MODE_PREFERRED': 'P',
+    'ACCOUNT_ID_MODE_DISABLED': 'Q',
+    'ACCOUNT_ID_MODE_REQUIRED': 'R',
     'SIGV4A_SIGNING': 'S',
+    'RESOLVED_ACCOUNT_ID': 'T',
+    'FLEXIBLE_CHECKSUMS_REQ_CRC32': 'U',
+    'FLEXIBLE_CHECKSUMS_REQ_CRC32C': 'V',
+    'FLEXIBLE_CHECKSUMS_REQ_CRC64': 'W',
+    'FLEXIBLE_CHECKSUMS_REQ_SHA1': 'X',
+    'FLEXIBLE_CHECKSUMS_REQ_SHA256': 'Y',
+    'FLEXIBLE_CHECKSUMS_REQ_WHEN_SUPPORTED': 'Z',
+    'FLEXIBLE_CHECKSUMS_REQ_WHEN_REQUIRED': 'a',
+    'FLEXIBLE_CHECKSUMS_RES_WHEN_SUPPORTED': 'b',
+    'FLEXIBLE_CHECKSUMS_RES_WHEN_REQUIRED': 'c',
+    'CREDENTIALS_HTTP': 'z',
+    'CREDENTIALS_IMDS': '0',
+    'BEARER_SERVICE_ENV_VARS': '3',
 }
 
 
@@ -177,10 +197,13 @@ class UserAgentComponent(NamedTuple):
 
         if string == '':
             logger.debug(
-                f"User agent component `{orig}` could not be truncated to "
-                f"`{max_size}` bytes with delimiter "
-                f"`{delimiter}` without losing all contents. "
-                f"Value will be omitted from user agent string."
+                "User agent component `%s` could not be truncated to "
+                "`%s` bytes with delimiter "
+                "`%s` without losing all contents. "
+                "Value will be omitted from user agent string.",
+                orig,
+                max_size,
+                delimiter,
             )
         return string
 

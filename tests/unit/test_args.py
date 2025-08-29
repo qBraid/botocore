@@ -13,18 +13,20 @@
 # language governing permissions and limitations under the License.
 import socket
 
+import pytest
+
 from botocore import UNSIGNED, args, exceptions
-from botocore.args import PRIORITY_ORDERED_SUPPORTED_PROTOCOLS
+from botocore.args import ClientConfigString
 from botocore.client import ClientEndpointBridge
 from botocore.config import Config
 from botocore.configprovider import ConfigValueStore
 from botocore.credentials import Credentials
-from botocore.exceptions import UnsupportedServiceProtocolsError
 from botocore.hooks import HierarchicalEmitter
 from botocore.model import ServiceModel
 from botocore.parsers import PROTOCOL_PARSERS
 from botocore.serialize import SERIALIZERS
 from botocore.useragent import UserAgentString
+from botocore.utils import PRIORITY_ORDERED_SUPPORTED_PROTOCOLS
 from tests import get_botocore_default_config_mapping, mock, unittest
 
 
@@ -69,6 +71,7 @@ class TestCreateClientArgs(unittest.TestCase):
         service_model.service_name = service_name
         service_model.endpoint_prefix = service_name
         service_model.protocol = 'query'
+        service_model.resolved_protocol = 'query'
         service_model.protocols = ['query']
         service_model.metadata = {
             'serviceFullName': 'MyService',
@@ -415,8 +418,29 @@ class TestCreateClientArgs(unittest.TestCase):
             client_args['endpoint'].host, 'http://sts.amazonaws.com'
         )
 
-    def test_sts_regional_endpoints_defaults_to_legacy_if_not_set(self):
+    def test_sts_endpoints_defaults_to_regional_if_not_set(self):
         self.config_store.set_config_variable('sts_regional_endpoints', None)
+        resolved_endpoint = 'https://resolved-endpoint'
+        resolved_region = 'resolved-region'
+        self._set_endpoint_bridge_resolve(
+            endpoint_url=resolved_endpoint, signing_region=resolved_region
+        )
+        client_args = self.call_get_client_args(
+            service_model=self._get_service_model('sts'),
+            region_name='us-west-2',
+            endpoint_url=None,
+        )
+        self.assertEqual(
+            client_args['endpoint'].host, 'https://resolved-endpoint'
+        )
+        self.assertEqual(
+            client_args['request_signer'].region_name, 'resolved-region'
+        )
+
+    def test_sts_regional_endpoints_set_to_legacy(self):
+        self.config_store.set_config_variable(
+            'sts_regional_endpoints', 'legacy'
+        )
         client_args = self.call_get_client_args(
             service_model=self._get_service_model('sts'),
             region_name='us-west-2',
@@ -700,25 +724,6 @@ class TestCreateClientArgs(unittest.TestCase):
         with self.assertRaises(exceptions.InvalidChecksumConfigError):
             self.call_get_client_args()
 
-    def test_protocol_resolution_without_protocols_trait(self):
-        del self.service_model.protocols
-        del self.service_model.metadata['protocols']
-        client_args = self.call_compute_client_args()
-        self.assertEqual(client_args['protocol'], 'query')
-
-    def test_protocol_resolution_picks_highest_supported(self):
-        self.service_model.protocol = 'query'
-        self.service_model.protocols = ['query', 'json']
-        client_args = self.call_compute_client_args()
-        self.assertEqual(client_args['protocol'], 'json')
-
-    def test_protocol_raises_error_for_unsupported_protocol(self):
-        self.service_model.protocols = ['wrongprotocol']
-        with self.assertRaisesRegex(
-            UnsupportedServiceProtocolsError, self.service_model.service_name
-        ):
-            self.call_compute_client_args()
-
     def test_account_id_endpoint_mode_set_on_config_store(self):
         self.config_store.set_config_variable(
             'account_id_endpoint_mode', 'preferred'
@@ -784,6 +789,43 @@ class TestCreateClientArgs(unittest.TestCase):
         config = client_args['client_config']
         self.assertEqual(config.inject_host_prefix, False)
 
+    def test_auth_scheme_preference_set_on_config_store(self):
+        self.config_store.set_config_variable(
+            'auth_scheme_preference', 'scheme1, scheme2 , \tscheme3 \t'
+        )
+        config = self.call_get_client_args()['client_config']
+        self.assertEqual(
+            config.auth_scheme_preference, 'scheme1,scheme2,scheme3'
+        )
+        self.assertNotIsInstance(
+            config.auth_scheme_preference, ClientConfigString
+        )
+
+    def test_auth_scheme_preference_set_on_client_config(self):
+        config = self.call_get_client_args(
+            client_config=Config(
+                auth_scheme_preference='scheme1, scheme2 , \tscheme3 \t'
+            )
+        )['client_config']
+        self.assertEqual(
+            config.auth_scheme_preference, 'scheme1,scheme2,scheme3'
+        )
+        self.assertIsInstance(
+            config.auth_scheme_preference, ClientConfigString
+        )
+
+    def test_auth_scheme_preference_bad_value(self):
+        with self.assertRaises(exceptions.InvalidConfigError):
+            config = Config(
+                auth_scheme_preference=['scheme1', 'scheme2', 'scheme3']
+            )
+            self.call_get_client_args(client_config=config)
+        self.config_store.set_config_variable(
+            'auth_scheme_preference', ['scheme1', 'scheme2', 'scheme3']
+        )
+        with self.assertRaises(exceptions.InvalidConfigError):
+            self.call_get_client_args()
+
 
 class TestEndpointResolverBuiltins(unittest.TestCase):
     def setUp(self):
@@ -841,7 +883,7 @@ class TestEndpointResolverBuiltins(unittest.TestCase):
         self.assertEqual(bins['AWS::Region'], 'ca-central-1')
         self.assertEqual(bins['AWS::UseFIPS'], False)
         self.assertEqual(bins['AWS::UseDualStack'], False)
-        self.assertEqual(bins['AWS::STS::UseGlobalEndpoint'], True)
+        self.assertEqual(bins['AWS::STS::UseGlobalEndpoint'], False)
         self.assertEqual(bins['AWS::S3::UseGlobalEndpoint'], False)
         self.assertEqual(bins['AWS::S3::Accelerate'], False)
         self.assertEqual(bins['AWS::S3::ForcePathStyle'], False)
@@ -897,7 +939,7 @@ class TestEndpointResolverBuiltins(unittest.TestCase):
         bins = self.call_compute_endpoint_resolver_builtin_defaults(
             region_name='us-west-2',
         )
-        self.assertEqual(bins['AWS::STS::UseGlobalEndpoint'], True)
+        self.assertEqual(bins['AWS::STS::UseGlobalEndpoint'], False)
 
     def test_aws_sts_global_endpoint_with_default_and_nonlegacy_region(self):
         bins = self.call_compute_endpoint_resolver_builtin_defaults(
@@ -1048,3 +1090,40 @@ class TestProtocolPriorityList:
             "The map of protocol names to serializers is out of sync with the "
             "priority ordered list of protocols supported by botocore"
         )
+
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        ("scheme1, scheme2 , \tscheme3 \t", "scheme1,scheme2,scheme3"),
+        (
+            "scheme1, scheme2 \t scheme3 scheme4",
+            "scheme1,scheme2scheme3scheme4",
+        ),
+        (
+            "scheme1, scheme2   scheme3 scheme4     ",
+            "scheme1,scheme2scheme3scheme4",
+        ),
+        (",scheme1,, scheme2\t", "scheme1,scheme2"),
+    ],
+)
+def test_auth_scheme_preference_normalization(value, expected):
+    config_store = ConfigValueStore()
+    config_store.set_config_variable("auth_scheme_preference", value)
+
+    args_creator = args.ClientArgsCreator(
+        event_emitter=None,
+        user_agent=None,
+        response_parser_factory=None,
+        loader=None,
+        exceptions_factory=None,
+        config_store=config_store,
+        user_agent_creator=mock.Mock(),
+    )
+
+    config_kwargs = {}
+    args_creator._compute_auth_scheme_preference_config(
+        client_config=None, config_kwargs=config_kwargs
+    )
+
+    assert config_kwargs["auth_scheme_preference"] == expected

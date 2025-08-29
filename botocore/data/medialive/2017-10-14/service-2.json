@@ -5677,8 +5677,7 @@
     },
     "AcceptInputDeviceTransferResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for AcceptInputDeviceTransferResponse"
     },
     "AccessDenied": {
@@ -5823,14 +5822,12 @@
     },
     "AribDestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Arib Destination Settings"
     },
     "AribSourceSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Arib Source Settings"
     },
     "AudioChannelMapping": {
@@ -6894,6 +6891,11 @@
           "shape": "__integerMin0",
           "locationName": "yPosition",
           "documentation": "Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would result in the captions starting 10 pixels from the top of the output. If no explicit yPosition is provided, the caption will be positioned towards the bottom of the output.  All burn-in and DVB-Sub font settings must match."
+        },
+        "SubtitleRows": {
+          "shape": "BurnInDestinationSubtitleRows",
+          "locationName": "subtitleRows",
+          "documentation": "Applies only when the input captions are Teletext and the output captions are DVB-Sub or Burn-In. Choose the number of lines for the captions bitmap. The captions bitmap is 700 wide × 576 high and will be laid over the video. For example, a value of 16 divides the bitmap into 16 lines, with each line 36 pixels high (16 × 36 = 576). The default is 24 (24 pixels high). Enter the same number in every encode in every output that converts the same Teletext source to DVB-Sub or Burn-in."
         }
       },
       "documentation": "Burn In Destination Settings"
@@ -6956,8 +6958,7 @@
     },
     "CancelInputDeviceTransferResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for CancelInputDeviceTransferResponse"
     },
     "CaptionDescription": {
@@ -7473,8 +7474,7 @@
     },
     "ClaimDeviceResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for ClaimDeviceResponse"
     },
     "ColorCorrection": {
@@ -7529,8 +7529,7 @@
     },
     "ColorSpacePassthroughSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Passthrough applies no color space conversion to the output"
     },
     "ConflictException": {
@@ -8369,8 +8368,7 @@
     },
     "DeleteInputResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for DeleteInputResponse"
     },
     "DeleteInputSecurityGroupRequest": {
@@ -8390,8 +8388,7 @@
     },
     "DeleteInputSecurityGroupResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for DeleteInputSecurityGroupResponse"
     },
     "DeleteMultiplexProgramRequest": {
@@ -8651,8 +8648,7 @@
     },
     "DeleteScheduleResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for DeleteScheduleResponse"
     },
     "DeleteTagsRequest": {
@@ -8678,8 +8674,7 @@
     },
     "DescribeAccountConfigurationRequest": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for DescribeAccountConfigurationRequest"
     },
     "DescribeAccountConfigurationResponse": {
@@ -9594,8 +9589,7 @@
     },
     "DolbyVision81Settings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Dolby Vision81 Settings"
     },
     "DvbNitSettings": {
@@ -9788,6 +9782,11 @@
           "shape": "__integerMin0",
           "locationName": "yPosition",
           "documentation": "Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would result in the captions starting 10 pixels from the top of the output. If no explicit yPosition is provided, the caption will be positioned towards the bottom of the output.  This option is not valid for source captions that are STL, 608/embedded or teletext.  These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match."
+        },
+        "SubtitleRows": {
+          "shape": "DvbSubDestinationSubtitleRows",
+          "locationName": "subtitleRows",
+          "documentation": "Applies only when the input captions are Teletext and the output captions are DVB-Sub or Burn-In. Choose the number of lines for the captions bitmap. The captions bitmap is 700 wide × 576 high and will be laid over the video. For example, a value of 16 divides the bitmap into 16 lines, with each line 36 pixels high (16 × 36 = 576). The default is 24 (24 pixels high). Enter the same number in every encode in every output that converts the same Teletext source to DVB-Sub or Burn-in."
         }
       },
       "documentation": "Dvb Sub Destination Settings"
@@ -10218,14 +10217,12 @@
     },
     "EmbeddedDestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Embedded Destination Settings"
     },
     "EmbeddedPlusScte20DestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Embedded Plus Scte20 Destination Settings"
     },
     "EmbeddedScte20Detection": {
@@ -10264,8 +10261,7 @@
     },
     "Empty": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for Empty"
     },
     "EncoderSettings": {
@@ -10637,8 +10633,7 @@
     },
     "FrameCaptureHlsSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Frame Capture Hls Settings"
     },
     "FrameCaptureIntervalUnit": {
@@ -12346,8 +12341,7 @@
     },
     "HtmlMotionGraphicsSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Html Motion Graphics Settings"
     },
     "IFrameOnlyPlaylistType": {
@@ -12360,8 +12354,7 @@
     },
     "ImmediateModeScheduleActionStartSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Settings to configure an action so that it occurs as soon as possible."
     },
     "IncludeFillerNalUnits": {
@@ -15005,8 +14998,7 @@
     },
     "MediaPackageOutputSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Media Package Output Settings"
     },
     "MotionGraphicsActivateScheduleActionSettings": {
@@ -15055,8 +15047,7 @@
     },
     "MotionGraphicsDeactivateScheduleActionSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Settings to specify the ending of rendering motion graphics into the video stream."
     },
     "MotionGraphicsInsertion": {
@@ -15480,8 +15471,7 @@
     },
     "MultiplexGroupSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Multiplex Group Settings"
     },
     "MultiplexMediaConnectOutputDestinationSettings": {
@@ -16177,6 +16167,11 @@
           "shape": "__listOfSrtOutputDestinationSettings",
           "locationName": "srtSettings",
           "documentation": "SRT settings for an SRT output; one destination for each redundant encoder."
+        },
+        "LogicalInterfaceNames": {
+          "shape": "__listOf__string",
+          "locationName": "logicalInterfaceNames",
+          "documentation": "Optional assignment of an output to a logical interface on the Node. Only applies to on premises channels."
         }
       },
       "documentation": "Placeholder documentation for OutputDestination"
@@ -16349,8 +16344,7 @@
     },
     "PassThroughSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Pass Through Settings"
     },
     "PauseStateScheduleActionSettings": {
@@ -16409,8 +16403,7 @@
     },
     "PipelineLockingSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Pipeline Locking Settings"
     },
     "PipelinePauseStateSettings": {
@@ -16545,8 +16538,7 @@
     },
     "RawSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Raw Settings"
     },
     "RebootInputDevice": {
@@ -16590,20 +16582,17 @@
     },
     "RebootInputDeviceResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for RebootInputDeviceResponse"
     },
     "Rec601Settings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Rec601 Settings"
     },
     "Rec709Settings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Rec709 Settings"
     },
     "RejectInputDeviceTransferRequest": {
@@ -16623,8 +16612,7 @@
     },
     "RejectInputDeviceTransferResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for RejectInputDeviceTransferResponse"
     },
     "RemixSettings": {
@@ -16947,8 +16935,7 @@
     },
     "RtmpCaptionInfoDestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Rtmp Caption Info Destination Settings"
     },
     "RtmpGroupSettings": {
@@ -17184,8 +17171,7 @@
     },
     "ScheduleDeleteResultModel": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Result of a schedule deletion."
     },
     "ScheduleDescribeResultModel": {
@@ -17217,8 +17203,7 @@
     },
     "Scte20PlusEmbeddedDestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Scte20 Plus Embedded Destination Settings"
     },
     "Scte20SourceSettings": {
@@ -17239,8 +17224,7 @@
     },
     "Scte27DestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Scte27 Destination Settings"
     },
     "Scte27OcrLanguage": {
@@ -17662,8 +17646,7 @@
     },
     "SmpteTtDestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Smpte Tt Destination Settings"
     },
     "StandardHlsSettings": {
@@ -17820,8 +17803,7 @@
     },
     "StartInputDeviceMaintenanceWindowResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for StartInputDeviceMaintenanceWindowResponse"
     },
     "StartInputDeviceRequest": {
@@ -17841,8 +17823,7 @@
     },
     "StartInputDeviceResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for StartInputDeviceResponse"
     },
     "StartMultiplexRequest": {
@@ -18246,8 +18227,7 @@
     },
     "StopInputDeviceResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for StopInputDeviceResponse"
     },
     "StopMultiplexRequest": {
@@ -18359,8 +18339,7 @@
     },
     "TeletextDestinationSettings": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Teletext Destination Settings"
     },
     "TeletextSourceSettings": {
@@ -18496,8 +18475,7 @@
     },
     "ThumbnailNoData": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Response when thumbnail has no data. It should have no message."
     },
     "ThumbnailState": {
@@ -18661,8 +18639,7 @@
     },
     "TransferInputDeviceResponse": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for TransferInputDeviceResponse"
     },
     "TransferringInputDeviceSummary": {
@@ -18894,6 +18871,11 @@
         "DryRun": {
           "shape": "__boolean",
           "locationName": "dryRun"
+        },
+        "AnywhereSettings": {
+          "shape": "AnywhereSettings",
+          "locationName": "anywhereSettings",
+          "documentation": "The Elemental Anywhere settings for this channel."
         }
       },
       "documentation": "Placeholder documentation for UpdateChannel"
@@ -19014,6 +18996,11 @@
         "DryRun": {
           "shape": "__boolean",
           "locationName": "dryRun"
+        },
+        "AnywhereSettings": {
+          "shape": "AnywhereSettings",
+          "locationName": "anywhereSettings",
+          "documentation": "The Elemental Anywhere settings for this channel."
         }
       },
       "documentation": "A request to update a channel.",
@@ -21107,6 +21094,11 @@
           "shape": "CmafTimedMetadataPassthrough",
           "locationName": "timedMetadataPassthrough",
           "documentation": "Set to enabled to pass through ID3 metadata from the input sources."
+        },
+        "AdditionalDestinations": {
+          "shape": "__listOfAdditionalDestinations",
+          "locationName": "additionalDestinations",
+          "documentation": "Optional an array of additional destinational HTTP destinations for the OutputGroup outputs"
         }
       },
       "documentation": "Cmaf Ingest Group Settings",
@@ -25771,7 +25763,7 @@
           "documentation": "Configures whether MediaLive will write AFD values into the video.\nAUTO: MediaLive will try to preserve the input AFD value (in cases where multiple AFD values are valid).\nFIXED: the AFD value will be the value configured in the fixedAfd parameter.\nNONE: MediaLive won't write AFD into the video"
         },
         "BufSize": {
-          "shape": "__integerMin50000Max16000000",
+          "shape": "__integerMin50000Max24000000",
           "locationName": "bufSize",
           "documentation": "The size of the buffer (HRD buffer model) in bits."
         },
@@ -25816,7 +25808,7 @@
           "documentation": "Sets the amount of lookahead. A value of LOW can decrease latency and memory usage. A value of HIGH can produce better quality for certain content."
         },
         "MaxBitrate": {
-          "shape": "__integerMin50000Max8000000",
+          "shape": "__integerMin50000Max12000000",
           "locationName": "maxBitrate",
           "documentation": "The maximum bitrate to assign.\nFor recommendations, see the description for qvbrQualityLevel."
         },
@@ -25849,6 +25841,16 @@
           "shape": "TimecodeBurninSettings",
           "locationName": "timecodeBurninSettings",
           "documentation": "Configures the timecode burn-in feature. If you enable this feature, the timecode will become part of the video."
+        },
+        "Bitrate": {
+          "shape": "__integerMin50000Max12000000",
+          "locationName": "bitrate",
+          "documentation": "Average bitrate in bits/second. Required when the rate control mode is CBR. Not used for QVBR."
+        },
+        "RateControlMode": {
+          "shape": "Av1RateControlMode",
+          "locationName": "rateControlMode",
+          "documentation": "Rate control mode.\n\nQVBR: Quality will match the specified quality level except when it is constrained by the\nmaximum bitrate.  Recommended if you or your viewers pay for bandwidth.\n\nCBR: Quality varies, depending on the video complexity. Recommended only if you distribute\nyour assets to devices that cannot handle variable bitrates."
         }
       },
       "documentation": "Av1 Settings",
@@ -28414,17 +28416,17 @@
       "max": 16000,
       "documentation": "Placeholder documentation for __integerMin40Max16000"
     },
-    "__integerMin50000Max16000000": {
+    "__integerMin50000Max24000000": {
       "type": "integer",
       "min": 50000,
-      "max": 16000000,
-      "documentation": "Placeholder documentation for __integerMin50000Max16000000"
+      "max": 24000000,
+      "documentation": "Placeholder documentation for __integerMin50000Max24000000"
     },
-    "__integerMin50000Max8000000": {
+    "__integerMin50000Max12000000": {
       "type": "integer",
       "min": 50000,
-      "max": 8000000,
-      "documentation": "Placeholder documentation for __integerMin50000Max8000000"
+      "max": 12000000,
+      "documentation": "Placeholder documentation for __integerMin50000Max12000000"
     },
     "__listOfDescribeChannelPlacementGroupSummary": {
       "type": "list",
@@ -28746,8 +28748,7 @@
     },
     "ListVersionsRequest": {
       "type": "structure",
-      "members": {
-      },
+      "members": {},
       "documentation": "Placeholder documentation for ListVersionsRequest"
     },
     "ListVersionsResponse": {
@@ -29283,6 +29284,53 @@
         "shape": "CmafIngestCaptionLanguageMapping"
       },
       "documentation": "Placeholder documentation for __listOfCmafIngestCaptionLanguageMapping"
+    },
+    "Av1RateControlMode": {
+      "type": "string",
+      "documentation": "Av1 Rate Control Mode",
+      "enum": [
+        "CBR",
+        "QVBR"
+      ]
+    },
+    "AdditionalDestinations": {
+      "type": "structure",
+      "members": {
+        "Destination": {
+          "shape": "OutputLocationRef",
+          "locationName": "destination",
+          "documentation": "The destination location"
+        }
+      },
+      "documentation": "Additional output destinations for a CMAF Ingest output group",
+      "required": [
+        "Destination"
+      ]
+    },
+    "__listOfAdditionalDestinations": {
+      "type": "list",
+      "member": {
+        "shape": "AdditionalDestinations"
+      },
+      "documentation": "Placeholder documentation for __listOfAdditionalDestinations"
+    },
+    "BurnInDestinationSubtitleRows": {
+      "type": "string",
+      "documentation": "Burn In Destination Subtitle Rows",
+      "enum": [
+        "ROWS_16",
+        "ROWS_20",
+        "ROWS_24"
+      ]
+    },
+    "DvbSubDestinationSubtitleRows": {
+      "type": "string",
+      "documentation": "Dvb Sub Destination Subtitle Rows",
+      "enum": [
+        "ROWS_16",
+        "ROWS_20",
+        "ROWS_24"
+      ]
     }
   },
   "documentation": "API for AWS Elemental MediaLive"
